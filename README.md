@@ -10,19 +10,17 @@
 
 /retiraradmin [id]  (Comando exclusivo de nivel 6 = Fundador)
 
+/tra (Comando utilizado pra iniciar a jornada de trabalho do adm, antes de utilizar qualquer comando é necessario usar o /tra) 
 
 /ir [id]    (Id do jogador)
 /trazer [id] (Id do jogador)
-
-
 /tv [id] (id do jogador) para telar o jogador que você escolheu
 /sairtv  (para sair da tela do jogador)
-
-
 /kick [id] [motivo]
-
 /banir [id] [dias] [motivo]
+/desban [nick]
 
+/veh [id do veiculo] [cor1] [cor2] (Spawna um veiculo, [ID do 400 ao 611])
 
 
 

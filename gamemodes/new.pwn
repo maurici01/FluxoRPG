@@ -28,6 +28,8 @@ new Text:Text_Dormindo[1];
 new bool:Dormindo[MAX_PLAYERS];
 new DiasBan[MAX_PLAYERS];
 new bool:Assistindo[MAX_PLAYERS];
+new bool:TrabalhandoAdmin[MAX_PLAYERS];
+new SkinStaff[MAX_PLAYERS];
 
 public OnGameModeInit()
 {
@@ -433,7 +435,8 @@ stock Arquivo(playerid)
 
 stock SalvarConta(playerid)
 {
-	pInfo[playerid][pSkin] = GetPlayerSkin(playerid);
+	if(TrabalhandoAdmin[playerid] == false) pInfo[playerid][pSkin] = GetPlayerSkin(playerid);
+	else pInfo[playerid][pSkin] = SkinStaff[playerid];
 	pInfo[playerid][pGrana] = GetPlayerMoney(playerid);
 	dini_IntSet(Arquivo(playerid), "Fome", pInfo[playerid][pFome]);
 	dini_IntSet(Arquivo(playerid), "Sede", pInfo[playerid][pSede]);
@@ -462,6 +465,7 @@ stock LimparVariaveis(playerid)
 	pInfo[playerid][pSono] = 0;
 	pInfo[playerid][pSkin] = 0;
 	pInfo[playerid][pGrana] = 0;
+	TrabalhandoAdmin[playerid] = false;
 	return 1;
 }
 
@@ -496,6 +500,42 @@ stock CargoPlayer(nivel)
 }
 
 //Comandos
+
+CMD:tra(playerid)
+{
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == true)
+	{
+		//Desativar (Sair do modo trabalho dos adm)
+		SetPlayerSkin(playerid, SkinStaff[playerid]);
+		TrabalhandoAdmin[playerid] = false;
+		SetPlayerHealth(playerid, 100);
+		new str[120];
+		format(str, 120, "{FA58F4}Admin: {FFFFFF}O {FA58F4}%s %s{FFFFFF} saiu do modo trabalho.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid));
+		SendClientMessageToAll(-1, str);
+		//Avisa na tela que o adm saiu do modo de trabalho (talvez não seja um bom comando)
+		format(str, 120, "~p~Admin: ~w~O ~p~%s %s~w~ saiu do modo trabalho.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid));
+		GameTextForAll(str, 5000, 4);
+	}
+	else
+	{
+		//Ativar  (Entrar no modo trabalho dos adm)
+		TrabalhandoAdmin[playerid] = true;
+		SetPlayerHealth(playerid, 999999);
+		SkinStaff[playerid] = GetPlayerSkin(playerid);
+		SetPlayerSkin(playerid, 217);
+		new str[120];
+		format(str, 120, "{FA58F4}Admin: {FFFFFF}O {FA58F4}%s %s{FFFFFF} entrou do modo trabalho.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid));
+		SendClientMessageToAll(-1, str);
+
+		//Avisa na tela que o adm entrou em modo de trabalho (talvez não seja um bom comando)
+		format(str, 120, "~p~Admin: ~w~O ~p~%s %s~w~ entrou do modo trabalho.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid));
+		GameTextForAll(str, 5000, 4);
+	}
+
+	return 1;
+}
+
 
 CMD:daradmin(playerid, params[])
 {
@@ -534,6 +574,7 @@ CMD:ir(playerid, params[])
 {
 	new id, Float:Pos[3];
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "d", id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /ir [ID]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");
 	GetPlayerPos(id, Pos[0], Pos[1], Pos[2]);
@@ -552,6 +593,7 @@ CMD:tv(playerid, params[])
 {
 	new id;
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "d", id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /tv [ID]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");
 	TogglePlayerSpectating(playerid, 1);
@@ -569,6 +611,7 @@ CMD:tv(playerid, params[])
 CMD:sairtv(playerid)
 {
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	TogglePlayerSpectating(playerid, 0);
 	SendClientMessage(playerid, -1, "Voce nao esta mais telando o jogador");
 	Assistindo[playerid] = false;
@@ -579,6 +622,7 @@ CMD:trazer(playerid, params[])
 {
 	new id, Float:Pos[3];
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "d", id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /trazer [ID]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");
 	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
@@ -593,10 +637,27 @@ CMD:trazer(playerid, params[])
 	return 1;
 }
 
+CMD:veh(playerid, params[])
+{
+	new idcarro, cor1, cor2, Float:Pos[4], carro, str[90];
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
+	if(sscanf(params, "ddd", idcarro, cor1, cor2)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /veh [ID Veiculo] [Cor1] [Cor2]");
+	if(idcarro <400 || idcarro > 611) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Veiculo invalido");
+	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+	GetPlayerFacingAngle(playerid, Pos[3]);
+	carro = CreateVehicle(idcarro, Pos[0], Pos[1], Pos[2], Pos[3], cor1, cor2, -1);
+	PutPlayerInVehicle(playerid, carro, 0);
+	format(str, 130, "{82FA58}Info: {FFFFFF}Voce spawnou o carro %d.", idcarro);
+	SendClientMessage(playerid, -1, str);
+	return 1;
+}
+
 CMD:kick(playerid, params[])
 {
 	new id, motivo[50];
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "ds[50]", id, motivo)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /kick [ID] [Motivo]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");	
 	SetTimerEx("DelayKick", 500, false, "d", id);
@@ -610,6 +671,7 @@ CMD:banir(playerid, params[])
 {
 	new id, dias, motivo[50];
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "uds[50]", id, dias, motivo)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /banir [ID] [Dias] [Motivo]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");	
 	new pastaban[60], str[210];
@@ -625,6 +687,21 @@ CMD:banir(playerid, params[])
 	dini_Set(pastaban, "Data", str);
 	SetTimerEx("DelayKick", 500, false, "d", id);
 	format(str, 210, "{82FA58}Ban: {FFFFFF}O{82FA58} %s %s{FFFFFF} baniu o jogador {82FA58}%s{FFFFFF} por {82FA58}%d {FFFFFF}dias. Motivo:{FFFFFF} {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), pName(id), dias, motivo);
+	SendClientMessageToAll(-1, str);
+	return 1;
+}
+
+CMD:desban(playerid, params[])
+{
+	new nick[50];
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
+	if(sscanf(params, "s[50]", nick)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /desban [Nick]");
+	new pastaban[60], str[210];
+	format(pastaban, 60, "Banidos/%s.ini", nick);
+	if(dini_Exists(pastaban)) dini_Remove(pastaban);
+	else return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Este player nao esta banido.");
+	format(str, 210, "{82FA58}Ban: {FFFFFF}O{82FA58} %s %s{FFFFFF} desbaniu o jogador {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), nick);
 	SendClientMessageToAll(-1, str);
 	return 1;
 }
