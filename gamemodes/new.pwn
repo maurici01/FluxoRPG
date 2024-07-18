@@ -519,7 +519,7 @@ CMD:retiraradmin(playerid, params[])
 {
 	new id;
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
-	if(sscanf(params, "d", id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /daradmin [ID]");
+	if(sscanf(params, "d", id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /retiraradmin [ID]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");
 	pInfo[id][pAdmin] = 0;
 	new str[150];
