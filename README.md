@@ -29,6 +29,8 @@
 -------------------------
 Sistemas que precisam de atenção.
 
+/cadeia [id] [tempo] [motivo] necessario atenção pq de alguns bugs
+
 Sistema de comer, beber e dormir
 
 /teste  (comando de teste que troca a skin, da uma grana, da algumas armas)

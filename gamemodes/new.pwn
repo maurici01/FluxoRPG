@@ -19,7 +19,10 @@ enum Player
 	pSono,
 	pGrana,
 	pSkin,
-	pAdmin
+	pAdmin,
+	pPresoAdmin,
+	pMinutosAdmin,
+	pSegundosAdmin
 };
 
 new pInfo[MAX_PLAYERS][Player];
@@ -30,6 +33,8 @@ new DiasBan[MAX_PLAYERS];
 new bool:Assistindo[MAX_PLAYERS];
 new bool:TrabalhandoAdmin[MAX_PLAYERS];
 new SkinStaff[MAX_PLAYERS];
+new TimerCadeia[MAX_PLAYERS];
+new PlayerText:Text_Timer[MAX_PLAYERS][1];
 
 public OnGameModeInit()
 {
@@ -57,7 +62,7 @@ public OnGameModeExit()
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0);
+	SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
 	SpawnPlayer(playerid);
 	if(!dini_Exists(Arquivo(playerid)))
 	{
@@ -67,10 +72,27 @@ public OnPlayerRequestClass(playerid, classid)
 		pInfo[playerid][pAdmin] = 0;
 		pInfo[playerid][pSono] = 100;
 		SalvarConta(playerid);
-
 	} 
 	CarregarConta(playerid);
 	VerificarBan(playerid);
+
+
+	if(pInfo[playerid][pPresoAdmin] == 1)
+	{
+		new str[50];
+		new pasta[50];
+		format(pasta, 50, "Cadeia/%s.ini", pName(playerid));
+		format(str, 50, "%02d:%02d", pInfo[playerid][pMinutosAdmin], pInfo[playerid][pSegundosAdmin]);
+		PlayerTextDrawSetString(playerid, Text_Timer[playerid][0], str);
+		PlayerTextDrawShow(playerid, Text_Timer[playerid][0]);
+		TimerCadeia[playerid] = SetTimerEx("SairCadeia", 1000, true, "d", playerid);
+		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 322.197998,302.497985,999.148437,0,  0, 0, 0, 0, 0, 0); // Posição do jogador
+		SpawnPlayer(playerid);
+		SetPlayerPos(playerid, 322.197998,302.497985,999.148437);
+		SetPlayerInterior(playerid, 5);
+		format(str, 210, "{FF0000}=-=- Voce esta preso =-=-\n\n{FFFFFF}Informacoes do banimento\n\n{58D3F7}Admin Responsavel: {FFFFFF}%s\n{58D3F7}Dia da Punicao: {FFFFFF}%s\n{58D3F7}Motivo: %s", dini_Get(pasta, "Admin"), dini_Get(pasta, "Data"), dini_Get(pasta, "Motivo"));
+		ShowPlayerDialog(playerid, 0, DIALOG_STYLE_MSGBOX, "Banido", str, "Sair", "Fechar");
+	}
 	GivePlayerMoney(playerid,pInfo[playerid][pGrana]);
 	SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
 
@@ -96,6 +118,17 @@ public OnPlayerRequestClass(playerid, classid)
 public OnPlayerConnect(playerid)
 {
 	LimparVariaveis(playerid);
+
+	Text_Timer[playerid][0] = CreatePlayerTextDraw(playerid, 458.000000, 334.355590, "00:00");	
+	PlayerTextDrawLetterSize(playerid, Text_Timer[playerid][0], 0.442333, 1.824000);
+	PlayerTextDrawAlignment(playerid, Text_Timer[playerid][0], 1);
+	PlayerTextDrawColor(playerid, Text_Timer[playerid][0], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Timer[playerid][0], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Timer[playerid][0], 1);
+	PlayerTextDrawBackgroundColor(playerid, Text_Timer[playerid][0], 255);
+	PlayerTextDrawFont(playerid, Text_Timer[playerid][0], 2);
+	PlayerTextDrawSetProportional(playerid, Text_Timer[playerid][0], 1);
+
 	Text_Hud[playerid][0] = CreatePlayerTextDraw(playerid, 246.000000, 424.214843, "LD_BEAT:chit");
 	PlayerTextDrawTextSize(playerid, Text_Hud[playerid][0], 19.000000, 22.000000);
 	PlayerTextDrawAlignment(playerid, Text_Hud[playerid][0], 1);
@@ -228,12 +261,12 @@ public OnPlayerText(playerid, text[])
 	{
 		new str[125];
 		format(str, 125, "{F6CEF5}[%s] %s {10F8DD}disse: {FFFFFF}%s", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), text);
-		ProxDetector(playerid, 13.0, -1, str, 1.6);
+		ProxDetector(playerid, 13.0, -1, str, 1.6); //13.0 de distancia
 		return 0;
 	}
 	new str[125];
 	format(str, 125, "{81DAF5}[ID %d] %s {10F8DD}disse: {FFFFFF}%s", playerid, pName(playerid), text);
-	ProxDetector(playerid, 13.0, -1, str, 1.6);
+	ProxDetector(playerid, 13.0, -1, str, 1.6); //13.0 de distancia
 	return 0;
 }
 
@@ -455,6 +488,10 @@ stock SalvarConta(playerid)
 	dini_IntSet(Arquivo(playerid), "Skin", pInfo[playerid][pSkin]);
 	dini_IntSet(Arquivo(playerid), "Grana", pInfo[playerid][pGrana]);
 	dini_IntSet(Arquivo(playerid), "Admin", pInfo[playerid][pAdmin]);
+
+	dini_IntSet(Arquivo(playerid), "Preso", pInfo[playerid][pPresoAdmin]);
+	dini_IntSet(Arquivo(playerid), "MinutosPreso", pInfo[playerid][pMinutosAdmin]);
+	dini_IntSet(Arquivo(playerid), "SegundosPreso", pInfo[playerid][pSegundosAdmin]);
 	return 1;
 }
 
@@ -466,11 +503,16 @@ stock CarregarConta(playerid)
 	pInfo[playerid][pSkin] = dini_Int(Arquivo(playerid), "Skin");
 	pInfo[playerid][pGrana] = dini_Int(Arquivo(playerid), "Grana");
 	pInfo[playerid][pAdmin] = dini_Int(Arquivo(playerid), "Admin");
+
+	pInfo[playerid][pPresoAdmin] = dini_Int(Arquivo(playerid), "Preso");
+	pInfo[playerid][pMinutosAdmin] = dini_Int(Arquivo(playerid), "MinutosPreso");
+	pInfo[playerid][pSegundosAdmin] = dini_Int(Arquivo(playerid), "SegundosPreso");
 	return 1;
 }
 
 stock LimparVariaveis(playerid)
 {
+	KillTimer(TimerCadeia[playerid]);
 	pInfo[playerid][pFome] = 0;
 	pInfo[playerid][pSede] = 0;
 	pInfo[playerid][pSono] = 0;
@@ -547,6 +589,37 @@ CMD:tra(playerid)
 	return 1;
 }
 
+CMD:cadeia(playerid, params[])
+{
+	new id, minutos, str[300], motivo[50];
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(sscanf(params, "uds[50]", id, minutos, motivo)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /cadeia [ID] [Minutos] [Motivo]");
+	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");
+	if(pInfo[playerid][pPresoAdmin] == 1) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Este jogador ja esta preso");
+	pInfo[playerid][pMinutosAdmin] = minutos -1;
+	pInfo[playerid][pSegundosAdmin] = 59;
+	pInfo[playerid][pPresoAdmin] = 1;
+	new pasta[50];
+	format(pasta, 50, "Cadeia/%s.ini", pName(id));
+	dini_Create(pasta);
+	dini_IntSet(pasta, "Minutos", pInfo[playerid][pMinutosAdmin]);
+	dini_IntSet(pasta, "Segundos", pInfo[playerid][pSegundosAdmin]);
+	dini_Set(pasta, "Motivo", motivo);
+	dini_Set(pasta, "Admin", pName(playerid));
+	format(str, 50, "%02d:%02d", pInfo[playerid][pMinutosAdmin], pInfo[playerid][pSegundosAdmin]);
+	PlayerTextDrawSetString(playerid, Text_Timer[playerid][0], str);
+	PlayerTextDrawShow(playerid, Text_Timer[playerid][0]);
+	TimerCadeia[playerid] = SetTimerEx("SairCadeia", 1000, true, "d", playerid);
+	SetPlayerPos(playerid, 322.197998, 302.497985, 999.148437);// Posição da cadeia 
+	SetPlayerInterior(playerid, 5);
+	new Ano, Mes, Dia;
+	getdate(Ano, Mes, Dia);
+	format(str, 50, "%02d/%02d/%d", Dia, Mes, Ano);
+	dini_Set(pasta, "Data", str);
+	format(str, 300, "{82FA58}Cadeia: {FFFFFF}O{82FA58} %s %s{FFFFFF} prendeu o jogador {82FA58}%s{FFFFFF} por {82FA58}%d {FFFFFF}minutos. Motivo:{FFFFFF} {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), pName(id), minutos, motivo);
+	SendClientMessageToAll(-1, str);
+	return 1;
+}
 
 CMD:daradmin(playerid, params[])
 {
@@ -763,12 +836,46 @@ stock ConvertToDays(n)
 	return DString;
 }
 
+
+
 forward DelayKick(playerid);
 public DelayKick(playerid)
 {
 	Kick(playerid);
 	return 1;
 }
+
+forward SairCadeia(playerid);
+public SairCadeia(playerid)
+{
+	pInfo[playerid][pSegundosAdmin] -= 1; 
+	new str[50];
+	format(str, 50, "%02d:%02d", pInfo[playerid][pMinutosAdmin], pInfo[playerid][pSegundosAdmin]);
+	PlayerTextDrawSetString(playerid, Text_Timer[playerid][0], str);
+	PlayerTextDrawShow(playerid, Text_Timer[playerid][0]);
+	if(pInfo[playerid][pSegundosAdmin] == 0 && pInfo[playerid][pMinutosAdmin] > 0)
+	{
+		pInfo[playerid][pMinutosAdmin] -=1;
+		pInfo[playerid][pSegundosAdmin] = 59;
+
+	}
+	if(pInfo[playerid][pSegundosAdmin] == 0 && pInfo[playerid][pMinutosAdmin] == 0)
+	{
+		new pasta[50];
+		format(pasta, 50, "Cadeia/%s.ini", pName(playerid));
+		dini_Remove(pasta);
+		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0);
+		SpawnPlayer(playerid);
+		SendClientMessage(playerid, -1, "Voce foi solto");
+		KillTimer(TimerCadeia[playerid]);
+		pInfo[playerid][pPresoAdmin] = 0;
+		SetPlayerInterior(playerid, 0);
+		PlayerTextDrawHide(playerid, Text_Timer[playerid][0]);
+		SalvarConta(playerid);
+	}
+	return 1;
+}
+
 CMD:comer(playerid)
 {
 	if(pInfo[playerid][pFome] > 70) return SendClientMessage(playerid, -1, "Voce nao esta com muita fome");
@@ -851,36 +958,36 @@ stock ProxDetector(playerid, Float:max_range, color, const string[], Float:max_r
 		clr_r, clr_g, clr_b,
 		Float:color_r, Float:color_g, Float:color_b;
 
-		if (!GetPlayerPos(playerid, pos_x, pos_y, pos_z)) {
-			return 0;
+	if (!GetPlayerPos(playerid, pos_x, pos_y, pos_z)) {
+		return 0;
+	}
+
+	color_r = float(color >> 24 & 0xFF);
+	color_g = float(color >> 16 & 0xFF);
+	color_b = float(color >> 8 & 0xFF);
+	range_with_ratio = max_range * max_ratio;
+
+#if defined foreach
+	foreach (new i : Player) {
+#else
+	for (new i = GetPlayerPoolSize(); i != -1; i--) {
+#endif
+		if (!IsPlayerStreamedIn(i, playerid)) {
+			continue;
 		}
 
-		color_r = float(color >> 24 & 0xFF);
-		color_g = float(color >> 16 & 0xFF);
-		color_b = float(color >> 8 & 0xFF);
-		range_with_ratio = max_range * max_ratio;
-
-	#if defined foreach
-		foreach (new i : Player) {
-	#else
-		for (new i = GetPlayerPoolSize(); i != -1; i--) {
-	#endif
-			if (!IsPlayerStreamedIn(i, playerid)) {
-				continue;
-			}
-
-			range = GetPlayerDistanceFromPoint(i, pos_x, pos_y, pos_z);
-			if (range > max_range) {
-				continue;
-			}
-
-			range_ratio = (range_with_ratio - range) / range_with_ratio;
-			clr_r = floatround(range_ratio * color_r);
-			clr_g = floatround(range_ratio * color_g);
-			clr_b = floatround(range_ratio * color_b);
-
-			SendClientMessage(i, (color & 0xFF) | (clr_b << 8) | (clr_g << 16) | (clr_r << 24), string);
+		range = GetPlayerDistanceFromPoint(i, pos_x, pos_y, pos_z);
+		if (range > max_range) {
+			continue;
 		}
+
+		range_ratio = (range_with_ratio - range) / range_with_ratio;
+		clr_r = floatround(range_ratio * color_r);
+		clr_g = floatround(range_ratio * color_g);
+		clr_b = floatround(range_ratio * color_b);
+
+		SendClientMessage(i, (color & 0xFF) | (clr_b << 8) | (clr_g << 16) | (clr_r << 24), string);
+	}
 
 	SendClientMessage(playerid, color, string);
 	return 1;
