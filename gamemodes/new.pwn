@@ -218,12 +218,23 @@ public OnVehicleSpawn(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
+	
 	return 1;
 }
 
 public OnPlayerText(playerid, text[])
 {
-	return 1;
+	if(pInfo[playerid][pAdmin] > 0 && TrabalhandoAdmin[playerid] == true)
+	{
+		new str[125];
+		format(str, 125, "{F6CEF5}[%s] %s {10F8DD}disse: {FFFFFF}%s", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), text);
+		ProxDetector(playerid, 13.0, -1, str, 1.6);
+		return 0;
+	}
+	new str[125];
+	format(str, 125, "{81DAF5}[ID %d] %s {10F8DD}disse: {FFFFFF}%s", playerid, pName(playerid), text);
+	ProxDetector(playerid, 13.0, -1, str, 1.6);
+	return 0;
 }
 
 public OnPlayerCommandText(playerid, cmdtext[])
@@ -820,10 +831,57 @@ public TimerSalvarConta(playerid)
 
 CMD:teste(playerid)
 {
-	SetPlayerSkin(playerid, 50);
-	GivePlayerMoney(playerid, 12000);
-	GivePlayerWeapon(playerid, 31, 1000);
-	GivePlayerWeapon(playerid, 24, 1000);
-	GivePlayerWeapon(playerid, 17, 1000);
+	SetPlayerSkin(playerid, 50); //Colocando a skin no player
+	GivePlayerMoney(playerid, 12000); //Dando money pra o player
+	GivePlayerWeapon(playerid, 31, 1000); // arma
+	GivePlayerWeapon(playerid, 24, 1000); // arma1
+	GivePlayerWeapon(playerid, 17, 1000); // arma2
+	return 1;
+}
+
+stock ProxDetector(playerid, Float:max_range, color, const string[], Float:max_ratio = 1.6)
+{
+	new
+		Float:pos_x,
+		Float:pos_y,
+		Float:pos_z,
+		Float:range,
+		Float:range_ratio,
+		Float:range_with_ratio,
+		clr_r, clr_g, clr_b,
+		Float:color_r, Float:color_g, Float:color_b;
+
+		if (!GetPlayerPos(playerid, pos_x, pos_y, pos_z)) {
+			return 0;
+		}
+
+		color_r = float(color >> 24 & 0xFF);
+		color_g = float(color >> 16 & 0xFF);
+		color_b = float(color >> 8 & 0xFF);
+		range_with_ratio = max_range * max_ratio;
+
+	#if defined foreach
+		foreach (new i : Player) {
+	#else
+		for (new i = GetPlayerPoolSize(); i != -1; i--) {
+	#endif
+			if (!IsPlayerStreamedIn(i, playerid)) {
+				continue;
+			}
+
+			range = GetPlayerDistanceFromPoint(i, pos_x, pos_y, pos_z);
+			if (range > max_range) {
+				continue;
+			}
+
+			range_ratio = (range_with_ratio - range) / range_with_ratio;
+			clr_r = floatround(range_ratio * color_r);
+			clr_g = floatround(range_ratio * color_g);
+			clr_b = floatround(range_ratio * color_b);
+
+			SendClientMessage(i, (color & 0xFF) | (clr_b << 8) | (clr_g << 16) | (clr_r << 24), string);
+		}
+
+	SendClientMessage(playerid, color, string);
 	return 1;
 }
