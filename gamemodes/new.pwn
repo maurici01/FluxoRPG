@@ -591,7 +591,7 @@ CMD:tra(playerid)
 
 CMD:cadeia(playerid, params[])
 {
-	new id, minutos, str[300], motivo[50];
+	new id, minutos, str[350], motivo[50];
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
 	if(sscanf(params, "uds[50]", id, minutos, motivo)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /cadeia [ID] [Minutos] [Motivo]");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");
@@ -616,8 +616,31 @@ CMD:cadeia(playerid, params[])
 	getdate(Ano, Mes, Dia);
 	format(str, 50, "%02d/%02d/%d", Dia, Mes, Ano);
 	dini_Set(pasta, "Data", str);
-	format(str, 300, "{82FA58}Cadeia: {FFFFFF}O{82FA58} %s %s{FFFFFF} prendeu o jogador {82FA58}%s{FFFFFF} por {82FA58}%d {FFFFFF}minutos. Motivo:{FFFFFF} {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), pName(id), minutos, motivo);
+	format(str, 350, "{82FA58}Cadeia: {FFFFFF}O{82FA58} %s %s{FFFFFF} prendeu o jogador {82FA58}%s{FFFFFF} por {82FA58}%d {FFFFFF}minutos. Motivo:{FFFFFF} {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), pName(id), minutos, motivo);
 	SendClientMessageToAll(-1, str);
+	return 1;
+}
+
+CMD:soltar(playerid, params[])
+{
+	new id;
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
+	if(sscanf(params, "u", id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /soltar [Id]");
+	new pasta[60], str[210];
+	format(pasta, 60, "Cadeia/%s.ini", pName(id));
+	if(dini_Exists(pasta)) dini_Remove(pasta);
+	else return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Este player nao esta preso.");
+	format(str, 210, "{82FA58}Cadeia: {FFFFFF}O{82FA58} %s %s{FFFFFF} soltou o jogador {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), pName(id));
+	SendClientMessageToAll(-1, str);
+	SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0);//Mapeamento da cadeia
+	SpawnPlayer(playerid);
+	SendClientMessage(id, -1, "Voce foi solto");
+	KillTimer(TimerCadeia[playerid]);
+	pInfo[playerid][pPresoAdmin] = 0;
+	SetPlayerInterior(playerid, 0);
+	PlayerTextDrawHide(playerid, Text_Timer[playerid][0]);
+	SalvarConta(playerid);
 	return 1;
 }
 
