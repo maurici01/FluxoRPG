@@ -33,6 +33,7 @@ Sistemas que precisam de atenção.
 
 /cadeia [id] [tempo] [motivo] necessario atenção pq de alguns bugs
 /soltar [id]
+/mudarnick [Id] [Nick] (Necessario colocar a verificação se o nick ja existe)
 
 Sistema de comer, beber e dormir
 
