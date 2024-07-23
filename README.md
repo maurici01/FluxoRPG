@@ -19,9 +19,11 @@
 /kick [id] [motivo]
 /banir [id] [dias] [motivo]
 /desban [nick]
+/banirip [id] [dias] [Motivo]
+/desbanip [Ip]
 
 /veh [id do veiculo] [cor1] [cor2] (Spawna um veiculo, [ID do 400 ao 611])
-
+/dargrana [Id] [Quantidade] (Admin lv 5 +)
 
 
 

@@ -644,6 +644,20 @@ CMD:soltar(playerid, params[])
 	return 1;
 }
 
+CMD:dargrana(playerid, params[])
+{
+	new id, quantia, str[150];
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
+	if(sscanf(params, "ud", id, quantia)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /dargrana [Id] [Quantidade]");
+	GivePlayerMoney(id, quantia);
+	format(str, 150, "{82FA58}Info: {FFFFFF}Voce recebeu R$%d", quantia);
+	SendClientMessage(id, -1, str);
+	format(str, 150, "{82FA58}Info: {FFFFFF}Voce deu R$%d para o jogador %s", quantia, pName(id));
+	SendClientMessage(playerid, -1, str);
+	return 1;
+}
+
 CMD:daradmin(playerid, params[])
 {
 	new id, nivel;
@@ -798,6 +812,33 @@ CMD:banir(playerid, params[])
 	return 1;
 }
 
+CMD:banirip(playerid, params[])
+{
+	new id, dias, motivo[50];
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
+	if(sscanf(params, "uds[50]", id, dias, motivo)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /banirip [ID] [Dias] [Motivo]");
+	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Jogador Offline");	
+	new pastaipban[70], str[350], ip[50];
+	GetPlayerIp(id, ip, sizeof(ip));
+	format(pastaipban, 70, "IpsBanidos/%s.ini", ip);
+	dini_Create(pastaipban);
+	DiasBan[playerid] = ConvertDays(dias);
+	dini_IntSet(pastaipban, "DiasBan", DiasBan[playerid]);
+	dini_Set(pastaipban, "Motivo", motivo);
+	dini_Set(pastaipban, "Admin", pName(playerid));
+	dini_Set(pastaipban, "Nick", pName(id));
+	new Ano, Mes, Dia;
+	getdate(Ano, Mes, Dia);
+	format(str, 50, "%02d/%02d/%d", Dia, Mes, Ano);
+	dini_Set(pastaipban, "Data", str);
+	format(str, sizeof(str), "{82FA58}O{FFFFFF}O{82FA58} %s %s{FFFFFF} baniu por ip o {82FA58}%s{FFFFFF} por {82FA58}%d {FFFFFF}dias. Motivo:{FFFFFF} {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), pName(id), dias, motivo); //Mensagem do ban
+	SendClientMessageToAll(-1, str);
+	SetTimerEx("DelayKick", 1000, false, "d", id);
+	
+	return 1;
+}
+
 CMD:desban(playerid, params[])
 {
 	new nick[50];
@@ -813,12 +854,28 @@ CMD:desban(playerid, params[])
 	return 1;
 }
 
+CMD:desbanip(playerid, params[])
+{
+	new ip[50];
+	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
+	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
+	if(sscanf(params, "s[50]", ip)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /desbanip [ip]");
+	new pastaban[60], str[210];
+	format(pastaban, 60, "IpsBanidos/%s.ini", ip);
+	if(dini_Exists(pastaban)) dini_Remove(pastaban);
+	else return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Este ip nao esta banido.");
+	format(str, 210, "{82FA58}Ban: {FFFFFF}O{82FA58} %s %s{FFFFFF} desbaniu o jogador {82FA58}%s",  CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), dini_Get(pastaban, "Nick")); // desbanindo o ip e exibindo o nick
+	SendClientMessageToAll(-1, str);
+	return 1;
+}
+
 stock VerificarDias(dias)
 	return (dias) < gettime();
 
 stock VerificarBan(playerid)
 {
-	new pastaban[60],str[210];
+	new pastaban[60], pastaipban[50],str[210], ip[50];
+	GetPlayerIp(playerid, ip, sizeof(ip));
 	format(pastaban, 60, "Banidos/%s.ini", pName(playerid));
 	if(dini_Exists(pastaban))
 	{
@@ -832,6 +889,23 @@ stock VerificarBan(playerid)
 		else
 		{
 			format(str, 210, "{FF0000}=-=- Voce esta banido =-=-\n\n{FFFFFF}Informacoes do banimento\n\n{58D3F7}Admin Responsavel: {FFFFFF}%s\n{58D3F7}Dia do Banimento: {FFFFFF}%s\n{58D3F7}Dias Restantes: {FFFFFF}%s\n{58D3F7}Motivo: %s", dini_Get(pastaban, "Admin"), dini_Get(pastaban, "Data"), ConvertToDays(DiasBan[playerid]), dini_Get(pastaban, "Motivo"));
+			ShowPlayerDialog(playerid, 0, DIALOG_STYLE_MSGBOX, "Banido", str, "Sair", "Fechar");
+			SetTimerEx("DelayKick", 500, false, "d", playerid);
+		}
+	}
+	format(pastaipban, 60, "IpsBanidos/%s.ini", ip);
+	if(dini_Exists(pastaipban))
+	{
+		DiasBan[playerid] = dini_Int(pastaipban, "DiasBan");
+		if(VerificarDias(DiasBan[playerid]))
+		{
+			SendClientMessage(playerid, -1, "Info: {FFFFFF}Seu ban acabou, esta livre para jogar novamente");
+			DiasBan[playerid] = 0;
+			dini_Remove(pastaipban);
+		}
+		else
+		{
+			format(str, 210, "{FF0000}=-=- Voce esta banido =-=-\n\n{FFFFFF}Informacoes do banimento\n\n{58D3F7}Admin Responsavel: {FFFFFF}%s\n{58D3F7}Dia do Banimento: {FFFFFF}%s\n{58D3F7}Dias Restantes: {FFFFFF}%s\n{58D3F7}Motivo: %s", dini_Get(pastaipban, "Admin"), dini_Get(pastaipban, "Data"), ConvertToDays(DiasBan[playerid]), dini_Get(pastaipban, "Motivo"));
 			ShowPlayerDialog(playerid, 0, DIALOG_STYLE_MSGBOX, "Banido", str, "Sair", "Fechar");
 			SetTimerEx("DelayKick", 500, false, "d", playerid);
 		}
