@@ -24,6 +24,7 @@
 
 /veh [id do veiculo] [cor1] [cor2] (Spawna um veiculo, [ID do 400 ao 611])
 /dargrana [Id] [Quantidade] (Admin lv 5 +)
+/mudarnick [Id] [Nick] 
 
 
 
@@ -33,7 +34,7 @@ Sistemas que precisam de atenção.
 
 /cadeia [id] [tempo] [motivo] necessario atenção pq de alguns bugs
 /soltar [id]
-/mudarnick [Id] [Nick] (Necessario colocar a verificação se o nick ja existe)
+
 
 Sistema de comer, beber e dormir
 

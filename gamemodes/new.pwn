@@ -871,18 +871,23 @@ CMD:desbanip(playerid, params[])
 
 CMD:mudarnick(playerid, params[])
 {
-	new id, nick[50], str[130];
+	new id, nick[50], str[210];
 	if(!IsPlayerAdmin(playerid) && pInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem autorizacao");
 	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "us[50]", id, nick)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /mudarnick [Id] [Nick]");
 	format(str, 60, "Contas/%s.ini", nick);
-	DINI_frenametextfile(Arquivo(id), str);
-	format(str, 130, "{82FA58}Info: {FFFFFF}O %s %s trocou o nick para %s.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), nick);
-	SendClientMessage(id, -1, str);
-	format(str, 130, "{82FA58}Info: {FFFFFF}Voce trocou o nick do jogador %s para %s.", pName(id), nick);
-	SendClientMessage(playerid, -1, str);
-	
-	SetPlayerName(id, nick);
+	new pastaban[60];
+	format(pastaban, 60, "Contas/%s.ini", nick);
+	if(!dini_Exists(pastaban))
+	{
+		DINI_frenametextfile(Arquivo(id), str);
+		format(str, 130, "{82FA58}Info: {FFFFFF}O %s %s trocou o nick para %s.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), nick);
+		SendClientMessage(id, -1, str);
+		format(str, 130, "{82FA58}Info: {FFFFFF}Voce trocou o nick do jogador %s para %s.", pName(id), nick);
+		SendClientMessage(playerid, -1, str);
+		SetPlayerName(id, nick);
+	} 
+	else return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Este nick ja existe.");
 	return 1;
 }
 
