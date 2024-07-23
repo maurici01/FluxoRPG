@@ -876,9 +876,9 @@ CMD:mudarnick(playerid, params[])
 	if(TrabalhandoAdmin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao esta em modo trabalho");
 	if(sscanf(params, "us[50]", id, nick)) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Use /mudarnick [Id] [Nick]");
 	format(str, 60, "Contas/%s.ini", nick);
-	new pastaban[60];
-	format(pastaban, 60, "Contas/%s.ini", nick);
-	if(!dini_Exists(pastaban))
+	new pastaconta[60];
+	format(pastaconta, 60, "Contas/%s.ini", nick);
+	if(!dini_Exists(pastaconta))
 	{
 		DINI_frenametextfile(Arquivo(id), str);
 		format(str, 130, "{82FA58}Info: {FFFFFF}O %s %s trocou o nick para %s.", CargoPlayer(pInfo[playerid][pAdmin]), pName(playerid), nick);

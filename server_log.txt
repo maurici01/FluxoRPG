@@ -21846,3 +21846,16 @@ ___ == ____ == ___ == ___ ==
 [14:32:20] [join] Maurici01 has joined the server (0:127.0.0.1)
 [14:32:30] RCON (In-Game): Player #0 (Maurici01) has logged in.
 [14:38:45] [part] Maurici01 has left the server (0:1)
+[14:42:45] --- Server Shutting Down.
+[14:42:45] 
+
+*** Streamer Plugin v2.9.4 by Incognito unloaded ***
+
+[14:42:45] 
+
+[14:42:45]  ===============================
+
+[14:42:45]      sscanf plugin unloaded.    
+
+[14:42:45]  ===============================
+
