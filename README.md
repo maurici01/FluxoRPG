@@ -25,7 +25,7 @@
 /veh [id do veiculo] [cor1] [cor2] (Spawna um veiculo, [ID do 400 ao 611])
 /dargrana [Id] [Quantidade] (Admin lv 5 +)
 /mudarnick [Id] [Nick] 
-
+/admins (Exibe os adm online no modo /tra)
 
 
 

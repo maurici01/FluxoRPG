@@ -891,6 +891,23 @@ CMD:mudarnick(playerid, params[])
 	return 1;
 }
 
+CMD:admins(playerid)
+{
+	new str[500], string[100], admins = 0;
+	for(new i = 0; i< MAX_PLAYERS; i++)
+	{
+		if(pInfo[i][pAdmin] > 0 && TrabalhandoAdmin[i] == true)
+		{
+			format(string, 100, "{A9F5F2}%s - {FFFFFF}Cargo: {58D3F7}%s\n", pName(i), CargoPlayer(pInfo[i][pAdmin])); //exibe os adms no modo trabalho
+			strcat(str, string);
+			admins ++;
+		}
+	}
+	if(admins == 0) return SendClientMessage(playerid, -1, "{FA5858}Erro: Nao ha nenhum admin online.");
+	ShowPlayerDialog(playerid, 0, DIALOG_STYLE_LIST, "Admins", str, "Ok", "Fechar");
+	return 1;
+}
+
 stock VerificarDias(dias)
 	return (dias) < gettime();
 
