@@ -43,3 +43,11 @@ Sistema de comer, beber e dormir
 Comandos para serem deletados.
 
 /teste  (comando de teste que troca a skin, da uma grana, da algumas armas)
+
+
+
+
+----------
+Notas de atualização:
+
+Incrementado a primeira versão da tela de login

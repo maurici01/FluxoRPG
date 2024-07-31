@@ -12,6 +12,11 @@ main()
 
 #define ConvertDays(%0) (gettime() + (86400 * (%0)))
 
+new PlayerText:PText_Login[MAX_PLAYERS][9]; // variaveis da textdraw para login
+
+new Text:Text_Login[19];
+
+
 enum Player
 {
 	pFome,
@@ -52,6 +57,212 @@ public OnGameModeInit()
 	TextDrawBackgroundColor(Text_Dormindo[0], 255);
 	TextDrawFont(Text_Dormindo[0], 1);
 	TextDrawSetProportional(Text_Dormindo[0], 1);
+
+	//Sistema de login [TextDraw-TDE]
+	Text_Login[0] = TextDrawCreate(116.875000, 126.416648, "box");
+	TextDrawLetterSize(Text_Login[0], 0.000000, 27.687500);
+	TextDrawTextSize(Text_Login[0], 290.000000, 0.000000);
+	TextDrawAlignment(Text_Login[0], 1);
+	TextDrawColor(Text_Login[0], -1);
+	TextDrawUseBox(Text_Login[0], 1);
+	TextDrawBoxColor(Text_Login[0], 184);
+	TextDrawSetShadow(Text_Login[0], 0);
+	TextDrawBackgroundColor(Text_Login[0], 255);
+	TextDrawFont(Text_Login[0], 1);
+	TextDrawSetProportional(Text_Login[0], 1);
+
+	Text_Login[1] = TextDrawCreate(298.125000, 126.416687, "box");
+	TextDrawLetterSize(Text_Login[1], 0.000000, 27.687500);
+	TextDrawTextSize(Text_Login[1], 563.000000, 0.000000);
+	TextDrawAlignment(Text_Login[1], 1);
+	TextDrawColor(Text_Login[1], -1);
+	TextDrawUseBox(Text_Login[1], 1);
+	TextDrawBoxColor(Text_Login[1], 184);
+	TextDrawSetShadow(Text_Login[1], 0);
+	TextDrawBackgroundColor(Text_Login[1], 137);
+	TextDrawFont(Text_Login[1], 1);
+	TextDrawSetProportional(Text_Login[1], 1);
+
+	Text_Login[2] = TextDrawCreate(158.058502, 129.916671, "FLUXO_RPG");
+	TextDrawLetterSize(Text_Login[2], 0.520455, 1.940412);
+	TextDrawTextSize(Text_Login[2], 351.000000, 0.000000);
+	TextDrawAlignment(Text_Login[2], 1);
+	TextDrawColor(Text_Login[2], -16711824);
+	TextDrawSetShadow(Text_Login[2], -1);
+	TextDrawBackgroundColor(Text_Login[2], 255);
+	TextDrawFont(Text_Login[2], 3);
+	TextDrawSetProportional(Text_Login[2], 0);
+
+	Text_Login[3] = TextDrawCreate(126.875000, 190.000030, "login");
+	TextDrawLetterSize(Text_Login[3], 0.264997, 1.109997);
+	TextDrawTextSize(Text_Login[3], -218.000000, 0.000000);
+	TextDrawAlignment(Text_Login[3], 1);
+	TextDrawColor(Text_Login[3], -1);
+	TextDrawSetShadow(Text_Login[3], 0);
+	TextDrawBackgroundColor(Text_Login[3], 255);
+	TextDrawFont(Text_Login[3], 2);
+	TextDrawSetProportional(Text_Login[3], 1);
+
+	Text_Login[4] = TextDrawCreate(128.750000, 204.584304, "box");
+	TextDrawLetterSize(Text_Login[4], 0.000000, 1.812500);
+	TextDrawTextSize(Text_Login[4], 274.000000, 0.000000);
+	TextDrawAlignment(Text_Login[4], 1);
+	TextDrawColor(Text_Login[4], -1);
+	TextDrawUseBox(Text_Login[4], 1);
+	TextDrawBoxColor(Text_Login[4], 207);
+	TextDrawSetShadow(Text_Login[4], 0);
+	TextDrawBackgroundColor(Text_Login[4], 196);
+	TextDrawFont(Text_Login[4], 1);
+	TextDrawSetProportional(Text_Login[4], 1);
+
+	Text_Login[5] = TextDrawCreate(126.250000, 251.249969, "Senha");
+	TextDrawLetterSize(Text_Login[5], 0.264997, 1.109997);
+	TextDrawTextSize(Text_Login[5], -218.000000, 0.000000);
+	TextDrawAlignment(Text_Login[5], 1);
+	TextDrawColor(Text_Login[5], -1);
+	TextDrawSetShadow(Text_Login[5], 0);
+	TextDrawBackgroundColor(Text_Login[5], 255);
+	TextDrawFont(Text_Login[5], 2);
+	TextDrawSetProportional(Text_Login[5], 1);
+
+	Text_Login[6] = TextDrawCreate(128.750000, 267.583221, "box");
+	TextDrawLetterSize(Text_Login[6], 0.000000, 1.750000);
+	TextDrawTextSize(Text_Login[6], 276.000000, 0.000000);
+	TextDrawAlignment(Text_Login[6], 1);
+	TextDrawColor(Text_Login[6], -1);
+	TextDrawUseBox(Text_Login[6], 1);
+	TextDrawBoxColor(Text_Login[6], 236);
+	TextDrawSetShadow(Text_Login[6], 0);
+	TextDrawBackgroundColor(Text_Login[6], 255);
+	TextDrawFont(Text_Login[6], 1);
+	TextDrawSetProportional(Text_Login[6], 1);
+
+	Text_Login[7] = TextDrawCreate(159.760635, 131.329940, "FLUXO_RPG");
+	TextDrawLetterSize(Text_Login[7], 0.520455, 1.940412);
+	TextDrawTextSize(Text_Login[7], 351.000000, 0.000000);
+	TextDrawAlignment(Text_Login[7], 1);
+	TextDrawColor(Text_Login[7], -16711681);
+	TextDrawSetShadow(Text_Login[7], -1);
+	TextDrawBackgroundColor(Text_Login[7], 255);
+	TextDrawFont(Text_Login[7], 3);
+	TextDrawSetProportional(Text_Login[7], 0);
+
+	Text_Login[8] = TextDrawCreate(162.340332, 151.842285, "rEDE_FLUXO_RPG");
+	TextDrawLetterSize(Text_Login[8], 0.251913, 1.232555);
+	TextDrawTextSize(Text_Login[8], 166.000000, 0.000000);
+	TextDrawAlignment(Text_Login[8], 1);
+	TextDrawColor(Text_Login[8], -1);
+	TextDrawSetShadow(Text_Login[8], 0);
+	TextDrawBackgroundColor(Text_Login[8], 255);
+	TextDrawFont(Text_Login[8], 2);
+	TextDrawSetProportional(Text_Login[8], 1);
+
+	Text_Login[9] = TextDrawCreate(197.330276, 242.450607, "-");
+	TextDrawLetterSize(Text_Login[9], 6.563395, 12.559723);
+	TextDrawTextSize(Text_Login[9], 110.000000, 0.000000);
+	TextDrawAlignment(Text_Login[9], 1);
+	TextDrawColor(Text_Login[9], 65535);
+	TextDrawSetShadow(Text_Login[9], 0);
+	TextDrawBackgroundColor(Text_Login[9], 255);
+	TextDrawFont(Text_Login[9], 1);
+	TextDrawSetProportional(Text_Login[9], 1);
+
+	Text_Login[10] = TextDrawCreate(476.348663, 267.888977, "-");
+	TextDrawLetterSize(Text_Login[10], 6.743375, 15.032885);
+	TextDrawTextSize(Text_Login[10], -389.000000, 0.000000);
+	TextDrawAlignment(Text_Login[10], 1);
+	TextDrawColor(Text_Login[10], 8388863);
+	TextDrawSetShadow(Text_Login[10], 0);
+	TextDrawBackgroundColor(Text_Login[10], 255);
+	TextDrawFont(Text_Login[10], 1);
+	TextDrawSetProportional(Text_Login[10], 1);
+
+	Text_Login[11] = TextDrawCreate(192.891281, 288.172454, "-");
+	TextDrawLetterSize(Text_Login[11], 7.067787, 12.439585);
+	TextDrawTextSize(Text_Login[11], 66.000000, 0.000000);
+	TextDrawAlignment(Text_Login[11], 1);
+	TextDrawColor(Text_Login[11], -16776961);
+	TextDrawSetShadow(Text_Login[11], 0);
+	TextDrawBackgroundColor(Text_Login[11], 255);
+	TextDrawFont(Text_Login[11], 1);
+	TextDrawSetProportional(Text_Login[11], 1);
+
+	Text_Login[12] = TextDrawCreate(344.432037, 202.851608, "");
+	TextDrawTextSize(Text_Login[12], 90.000000, 90.000000);
+	TextDrawAlignment(Text_Login[12], 1);
+	TextDrawColor(Text_Login[12], -1);
+	TextDrawSetShadow(Text_Login[12], 0);
+	TextDrawBackgroundColor(Text_Login[12], 1);
+	TextDrawFont(Text_Login[12], 5);
+	TextDrawSetProportional(Text_Login[12], 0);
+	TextDrawSetPreviewModel(Text_Login[12], 23);
+	TextDrawSetPreviewRot(Text_Login[12], 0.000000, 0.000000, 0.000000, 1.000000);
+
+	Text_Login[13] = TextDrawCreate(418.817474, 194.359161, "");
+	TextDrawTextSize(Text_Login[13], 108.000000, 106.000000);
+	TextDrawAlignment(Text_Login[13], 1);
+	TextDrawColor(Text_Login[13], -1);
+	TextDrawSetShadow(Text_Login[13], 0);
+	TextDrawBackgroundColor(Text_Login[13], 1);
+	TextDrawFont(Text_Login[13], 5);
+	TextDrawSetProportional(Text_Login[13], 0);
+	TextDrawSetPreviewModel(Text_Login[13], 56);
+	TextDrawSetPreviewRot(Text_Login[13], 0.000000, 0.000000, 0.000000, 1.000000);
+
+	Text_Login[14] = TextDrawCreate(345.415222, 121.926521, "-");
+	TextDrawLetterSize(Text_Login[14], 6.201979, 12.623316);
+	TextDrawTextSize(Text_Login[14], 110.000000, 0.000000);
+	TextDrawAlignment(Text_Login[14], 1);
+	TextDrawColor(Text_Login[14], 16777215);
+	TextDrawSetShadow(Text_Login[14], 0);
+	TextDrawBackgroundColor(Text_Login[14], 255);
+	TextDrawFont(Text_Login[14], 1);
+	TextDrawSetProportional(Text_Login[14], 1);
+
+	Text_Login[15] = TextDrawCreate(425.982452, 122.719932, "-");
+	TextDrawLetterSize(Text_Login[15], 6.563395, 12.559723);
+	TextDrawTextSize(Text_Login[15], 110.000000, 0.000000);
+	TextDrawAlignment(Text_Login[15], 1);
+	TextDrawColor(Text_Login[15], -16711681);
+	TextDrawSetShadow(Text_Login[15], 0);
+	TextDrawBackgroundColor(Text_Login[15], 255);
+	TextDrawFont(Text_Login[15], 1);
+	TextDrawSetProportional(Text_Login[15], 1);
+
+	Text_Login[16] = TextDrawCreate(305.595550, 349.438476, "box");
+	TextDrawLetterSize(Text_Login[16], 0.000000, 1.863475);
+	TextDrawTextSize(Text_Login[16], 440.000000, 0.000000);
+	TextDrawAlignment(Text_Login[16], 1);
+	TextDrawColor(Text_Login[16], -1);
+	TextDrawUseBox(Text_Login[16], 1);
+	TextDrawBoxColor(Text_Login[16], 236);
+	TextDrawSetShadow(Text_Login[16], 0);
+	TextDrawBackgroundColor(Text_Login[16], 255);
+	TextDrawFont(Text_Login[16], 1);
+	TextDrawSetProportional(Text_Login[16], 1);
+
+	Text_Login[17] = TextDrawCreate(317.347229, 332.511840, "Crie_uma_senha");
+	TextDrawLetterSize(Text_Login[17], 0.264997, 1.109997);
+	TextDrawTextSize(Text_Login[17], -235.000000, 0.000000);
+	TextDrawAlignment(Text_Login[17], 1);
+	TextDrawColor(Text_Login[17], -1);
+	TextDrawSetShadow(Text_Login[17], 0);
+	TextDrawBackgroundColor(Text_Login[17], 255);
+	TextDrawFont(Text_Login[17], 2);
+	TextDrawSetProportional(Text_Login[17], 1);
+
+	Text_Login[18] = TextDrawCreate(408.803070, 168.253890, "Genero");
+	TextDrawLetterSize(Text_Login[18], 0.264997, 1.109997);
+	TextDrawTextSize(Text_Login[18], -218.000000, 0.000000);
+	TextDrawAlignment(Text_Login[18], 1);
+	TextDrawColor(Text_Login[18], -1);
+	TextDrawSetShadow(Text_Login[18], 0);
+	TextDrawSetOutline(Text_Login[18], 1);
+	TextDrawBackgroundColor(Text_Login[18], 255);
+	TextDrawFont(Text_Login[18], 2);
+	TextDrawSetProportional(Text_Login[18], 1);
+	//Termino do Sistema de login [TextDraw-TDE]
+
 	return 1;
 }
 
@@ -62,7 +273,7 @@ public OnGameModeExit()
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+	/*SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
 	SpawnPlayer(playerid);
 	if(!dini_Exists(Arquivo(playerid)))
 	{
@@ -112,6 +323,12 @@ public OnPlayerRequestClass(playerid, classid)
 	SetTimerEx("TimerSede", 550000, true, "d", playerid);
 	SetTimerEx("TimerSono", 700000, true, "d", playerid);
 	TogglePlayerControllable(playerid, 1);
+	*/
+	for(new i=0 ; i < 19; i++) TextDrawShowForPlayer(playerid, Text_Login[i]);
+	for(new i=0 ; i < 9; i++) PlayerTextDrawShow(playerid, PText_Login[playerid][i]);
+	SelectTextDraw(playerid, 0x64B1FFFF);
+	TogglePlayerSpectating(playerid, 1);
+	PlayerSpectatePlayer(playerid, playerid);
 	return 1;
 }
 
@@ -212,6 +429,126 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawBackgroundColor(playerid, Text_Hud[playerid][8], 255);
 	PlayerTextDrawFont(playerid, Text_Hud[playerid][8], 2);
 	PlayerTextDrawSetProportional(playerid, Text_Hud[playerid][8], 1);
+
+	////Sistema de login [TextDraw-TDE]
+	PText_Login[playerid][0] = CreatePlayerTextDraw(playerid, 221.180053, 305.886474, "Entrar");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][0], 0.388651, 1.713057);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][0], 275.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][0], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][0], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][0], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][0], -256);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][0], 2);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][0], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][0], 3);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][0], true);
+
+	PText_Login[playerid][1] = CreatePlayerTextDraw(playerid, 227.588592, 349.697235, "Sair");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][1], 0.466383, 1.642397);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][1], 281.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][1], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][1], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][1], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][1], 2);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][1], 171);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][1], 3);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][1], true);
+
+	PText_Login[playerid][2] = CreatePlayerTextDraw(playerid, 504.817230, 347.577331, "Criar");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][2], 0.400000, 1.600000);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][2], 557.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][2], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][2], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][2], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][2], 0);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][2], -1);
+	PlayerTextDrawSetOutline(playerid, PText_Login[playerid][2], 1);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][2], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][2], 3);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][2], true);
+
+	PText_Login[playerid][3] = CreatePlayerTextDraw(playerid, 132.535934, 204.018478, "MAURICIO");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][3], 0.388651, 1.713057);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][3], 188.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][3], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][3], -1);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][3], 2);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][3], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][3], 2);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][3], 1);
+
+	PText_Login[playerid][4] = CreatePlayerTextDraw(playerid, 131.534606, 267.728790, "]]]]]]]]]]]");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][4], 0.388651, 1.713057);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][4], 275.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][4], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][4], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][4], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][4], -65536);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][4], 2);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][4], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][4], 2);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][4], true);
+
+	PText_Login[playerid][5] = CreatePlayerTextDraw(playerid, 377.943145, 130.643661, "Registrar_conta");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][5], 0.400000, 1.600000);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][5], 442.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][5], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][5], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][5], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][5], 0);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][5], -1);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][5], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][5], 3);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][5], true);
+
+	PText_Login[playerid][6] = CreatePlayerTextDraw(playerid, 362.624114, 188.881896, "masculino");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][6], 0.228475, 1.246687);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][6], 419.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][6], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][6], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][6], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][6], 0);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][6], 0);
+	PlayerTextDrawSetOutline(playerid, PText_Login[playerid][6], 1);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][6], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][6], 2);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][6], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][6], true);
+
+	PText_Login[playerid][7] = CreatePlayerTextDraw(playerid, 450.167114, 188.481842, "Feminino");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][7], 0.228475, 1.246687);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][7], 506.000000, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][7], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][7], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][7], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][7], 0);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][7], 1);
+	PlayerTextDrawSetOutline(playerid, PText_Login[playerid][7], 1);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][7], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][7], 2);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][7], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][7], true);
+
+	PText_Login[playerid][8] = CreatePlayerTextDraw(playerid, 307.417022, 349.563964, "]]]]]]]]]");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][8], 0.388651, 1.713057);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][8], 452.198608, 15.000000);
+	PlayerTextDrawAlignment(playerid, PText_Login[playerid][8], 1);
+	PlayerTextDrawColor(playerid, PText_Login[playerid][8], -1);
+	PlayerTextDrawUseBox(playerid, PText_Login[playerid][8], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][8], -65536);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][8], 2);
+	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][8], 255);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][8], 2);
+	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][8], 1);
+	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][8], true);
+	//Termino do Sistema de login [TextDraw-TDE]
+
 	return 1;
 }
 
