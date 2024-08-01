@@ -12,9 +12,17 @@ main()
 
 #define ConvertDays(%0) (gettime() + (86400 * (%0)))
 
-new PlayerText:PText_Login[MAX_PLAYERS][9]; // variaveis da textdraw para login
+#define Dialog_InserirSenha 44
+#define Dialog_InserirSenhaRegistro 55
 
-new Text:Text_Login[19];
+new PlayerText:PText_Login[MAX_PLAYERS][8]; // variaveis da textdraw para login
+
+new Text:Text_Login[20];
+new SenhaLogin[MAX_PLAYERS][16];
+new SenhaRegistro[MAX_PLAYERS][16];
+
+new bool:DigitouSenhaLogin[MAX_PLAYERS];
+new bool:DigitouSenhaRegistro[MAX_PLAYERS];
 
 
 enum Player
@@ -22,6 +30,7 @@ enum Player
 	pFome,
 	pSede,
 	pSono,
+	pGenero,
 	pGrana,
 	pSkin,
 	pAdmin,
@@ -158,7 +167,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(Text_Login[8], 1);
 
 	Text_Login[9] = TextDrawCreate(197.330276, 242.450607, "-");
-	TextDrawLetterSize(Text_Login[9], 6.563395, 12.559723);
+	TextDrawLetterSize(Text_Login[9], 6.563395, 12.559722);
 	TextDrawTextSize(Text_Login[9], 110.000000, 0.000000);
 	TextDrawAlignment(Text_Login[9], 1);
 	TextDrawColor(Text_Login[9], 65535);
@@ -168,7 +177,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(Text_Login[9], 1);
 
 	Text_Login[10] = TextDrawCreate(476.348663, 267.888977, "-");
-	TextDrawLetterSize(Text_Login[10], 6.743375, 15.032885);
+	TextDrawLetterSize(Text_Login[10], 6.743374, 15.032884);
 	TextDrawTextSize(Text_Login[10], -389.000000, 0.000000);
 	TextDrawAlignment(Text_Login[10], 1);
 	TextDrawColor(Text_Login[10], 8388863);
@@ -178,7 +187,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(Text_Login[10], 1);
 
 	Text_Login[11] = TextDrawCreate(192.891281, 288.172454, "-");
-	TextDrawLetterSize(Text_Login[11], 7.067787, 12.439585);
+	TextDrawLetterSize(Text_Login[11], 7.067787, 12.439584);
 	TextDrawTextSize(Text_Login[11], 66.000000, 0.000000);
 	TextDrawAlignment(Text_Login[11], 1);
 	TextDrawColor(Text_Login[11], -16776961);
@@ -187,80 +196,91 @@ public OnGameModeInit()
 	TextDrawFont(Text_Login[11], 1);
 	TextDrawSetProportional(Text_Login[11], 1);
 
-	Text_Login[12] = TextDrawCreate(344.432037, 202.851608, "");
-	TextDrawTextSize(Text_Login[12], 90.000000, 90.000000);
+	Text_Login[12] = TextDrawCreate(377.943145, 130.643661, "Registrar_conta");
+	TextDrawLetterSize(Text_Login[12], 0.400000, 1.600000);
+	TextDrawTextSize(Text_Login[12], 442.000000, 0.000000);
 	TextDrawAlignment(Text_Login[12], 1);
 	TextDrawColor(Text_Login[12], -1);
-	TextDrawSetShadow(Text_Login[12], 0);
-	TextDrawBackgroundColor(Text_Login[12], 1);
-	TextDrawFont(Text_Login[12], 5);
-	TextDrawSetProportional(Text_Login[12], 0);
-	TextDrawSetPreviewModel(Text_Login[12], 23);
-	TextDrawSetPreviewRot(Text_Login[12], 0.000000, 0.000000, 0.000000, 1.000000);
+	TextDrawSetShadow(Text_Login[12], -1);
+	TextDrawBackgroundColor(Text_Login[12], 255);
+	TextDrawFont(Text_Login[12], 3);
+	TextDrawSetProportional(Text_Login[12], 1);
 
-	Text_Login[13] = TextDrawCreate(418.817474, 194.359161, "");
-	TextDrawTextSize(Text_Login[13], 108.000000, 106.000000);
+	Text_Login[13] = TextDrawCreate(344.432037, 202.851608, "");
+	TextDrawTextSize(Text_Login[13], 90.000000, 90.000000);
 	TextDrawAlignment(Text_Login[13], 1);
 	TextDrawColor(Text_Login[13], -1);
 	TextDrawSetShadow(Text_Login[13], 0);
 	TextDrawBackgroundColor(Text_Login[13], 1);
 	TextDrawFont(Text_Login[13], 5);
 	TextDrawSetProportional(Text_Login[13], 0);
-	TextDrawSetPreviewModel(Text_Login[13], 56);
+	TextDrawSetPreviewModel(Text_Login[13], 23);
 	TextDrawSetPreviewRot(Text_Login[13], 0.000000, 0.000000, 0.000000, 1.000000);
 
-	Text_Login[14] = TextDrawCreate(345.415222, 121.926521, "-");
-	TextDrawLetterSize(Text_Login[14], 6.201979, 12.623316);
-	TextDrawTextSize(Text_Login[14], 110.000000, 0.000000);
+	Text_Login[14] = TextDrawCreate(418.817474, 194.359161, "");
+	TextDrawTextSize(Text_Login[14], 108.000000, 106.000000);
 	TextDrawAlignment(Text_Login[14], 1);
-	TextDrawColor(Text_Login[14], 16777215);
+	TextDrawColor(Text_Login[14], -1);
 	TextDrawSetShadow(Text_Login[14], 0);
-	TextDrawBackgroundColor(Text_Login[14], 255);
-	TextDrawFont(Text_Login[14], 1);
-	TextDrawSetProportional(Text_Login[14], 1);
+	TextDrawBackgroundColor(Text_Login[14], 1);
+	TextDrawFont(Text_Login[14], 5);
+	TextDrawSetProportional(Text_Login[14], 0);
+	TextDrawSetPreviewModel(Text_Login[14], 56);
+	TextDrawSetPreviewRot(Text_Login[14], 0.000000, 0.000000, 0.000000, 1.000000);
 
-	Text_Login[15] = TextDrawCreate(425.982452, 122.719932, "-");
-	TextDrawLetterSize(Text_Login[15], 6.563395, 12.559723);
+	Text_Login[15] = TextDrawCreate(345.415222, 121.926521, "-");
+	TextDrawLetterSize(Text_Login[15], 6.201979, 12.623315);
 	TextDrawTextSize(Text_Login[15], 110.000000, 0.000000);
 	TextDrawAlignment(Text_Login[15], 1);
-	TextDrawColor(Text_Login[15], -16711681);
+	TextDrawColor(Text_Login[15], 16777215);
 	TextDrawSetShadow(Text_Login[15], 0);
 	TextDrawBackgroundColor(Text_Login[15], 255);
 	TextDrawFont(Text_Login[15], 1);
 	TextDrawSetProportional(Text_Login[15], 1);
 
-	Text_Login[16] = TextDrawCreate(305.595550, 349.438476, "box");
-	TextDrawLetterSize(Text_Login[16], 0.000000, 1.863475);
-	TextDrawTextSize(Text_Login[16], 440.000000, 0.000000);
+	Text_Login[16] = TextDrawCreate(425.982452, 122.719932, "-");
+	TextDrawLetterSize(Text_Login[16], 6.563395, 12.559722);
+	TextDrawTextSize(Text_Login[16], 110.000000, 0.000000);
 	TextDrawAlignment(Text_Login[16], 1);
-	TextDrawColor(Text_Login[16], -1);
-	TextDrawUseBox(Text_Login[16], 1);
-	TextDrawBoxColor(Text_Login[16], 236);
+	TextDrawColor(Text_Login[16], -16711681);
 	TextDrawSetShadow(Text_Login[16], 0);
 	TextDrawBackgroundColor(Text_Login[16], 255);
 	TextDrawFont(Text_Login[16], 1);
 	TextDrawSetProportional(Text_Login[16], 1);
 
-	Text_Login[17] = TextDrawCreate(317.347229, 332.511840, "Crie_uma_senha");
-	TextDrawLetterSize(Text_Login[17], 0.264997, 1.109997);
-	TextDrawTextSize(Text_Login[17], -235.000000, 0.000000);
+	Text_Login[17] = TextDrawCreate(305.595550, 349.438476, "box");
+	TextDrawLetterSize(Text_Login[17], 0.000000, 1.863474);
+	TextDrawTextSize(Text_Login[17], 440.000000, 0.000000);
 	TextDrawAlignment(Text_Login[17], 1);
 	TextDrawColor(Text_Login[17], -1);
+	TextDrawUseBox(Text_Login[17], 1);
+	TextDrawBoxColor(Text_Login[17], 236);
 	TextDrawSetShadow(Text_Login[17], 0);
 	TextDrawBackgroundColor(Text_Login[17], 255);
-	TextDrawFont(Text_Login[17], 2);
+	TextDrawFont(Text_Login[17], 1);
 	TextDrawSetProportional(Text_Login[17], 1);
 
-	Text_Login[18] = TextDrawCreate(408.803070, 168.253890, "Genero");
+	Text_Login[18] = TextDrawCreate(317.347229, 332.511840, "Crie_uma_senha");
 	TextDrawLetterSize(Text_Login[18], 0.264997, 1.109997);
-	TextDrawTextSize(Text_Login[18], -218.000000, 0.000000);
+	TextDrawTextSize(Text_Login[18], -235.000000, 0.000000);
 	TextDrawAlignment(Text_Login[18], 1);
 	TextDrawColor(Text_Login[18], -1);
 	TextDrawSetShadow(Text_Login[18], 0);
-	TextDrawSetOutline(Text_Login[18], 1);
 	TextDrawBackgroundColor(Text_Login[18], 255);
 	TextDrawFont(Text_Login[18], 2);
 	TextDrawSetProportional(Text_Login[18], 1);
+
+	Text_Login[19] = TextDrawCreate(408.803070, 168.253890, "Genero");
+	TextDrawLetterSize(Text_Login[19], 0.264997, 1.109997);
+	TextDrawTextSize(Text_Login[19], -218.000000, 0.000000);
+	TextDrawAlignment(Text_Login[19], 1);
+	TextDrawColor(Text_Login[19], -1);
+	TextDrawSetShadow(Text_Login[19], 0);
+	TextDrawSetOutline(Text_Login[19], 1);
+	TextDrawBackgroundColor(Text_Login[19], 255);
+	TextDrawFont(Text_Login[19], 2);
+	TextDrawSetProportional(Text_Login[19], 1);
+
 	//Termino do Sistema de login [TextDraw-TDE]
 
 	return 1;
@@ -273,62 +293,16 @@ public OnGameModeExit()
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	/*SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
-	SpawnPlayer(playerid);
-	if(!dini_Exists(Arquivo(playerid)))
-	{
-		dini_Create(Arquivo(playerid));
-		pInfo[playerid][pFome] = 100;
-		pInfo[playerid][pSede] = 100;
-		pInfo[playerid][pAdmin] = 0;
-		pInfo[playerid][pSono] = 100;
-		SalvarConta(playerid);
-	} 
-	CarregarConta(playerid);
-	VerificarBan(playerid);
-
-
-	if(pInfo[playerid][pPresoAdmin] == 1)
-	{
-		new str[50];
-		new pasta[50];
-		format(pasta, 50, "Cadeia/%s.ini", pName(playerid));
-		format(str, 50, "%02d:%02d", pInfo[playerid][pMinutosAdmin], pInfo[playerid][pSegundosAdmin]);
-		PlayerTextDrawSetString(playerid, Text_Timer[playerid][0], str);
-		PlayerTextDrawShow(playerid, Text_Timer[playerid][0]);
-		TimerCadeia[playerid] = SetTimerEx("SairCadeia", 1000, true, "d", playerid);
-		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 322.197998,302.497985,999.148437,0,  0, 0, 0, 0, 0, 0); // Posição do jogador
-		SpawnPlayer(playerid);
-		SetPlayerPos(playerid, 322.197998,302.497985,999.148437);
-		SetPlayerInterior(playerid, 5);
-		format(str, 210, "{FF0000}=-=- Voce esta preso =-=-\n\n{FFFFFF}Informacoes do banimento\n\n{58D3F7}Admin Responsavel: {FFFFFF}%s\n{58D3F7}Dia da Punicao: {FFFFFF}%s\n{58D3F7}Motivo: %s", dini_Get(pasta, "Admin"), dini_Get(pasta, "Data"), dini_Get(pasta, "Motivo"));
-		ShowPlayerDialog(playerid, 0, DIALOG_STYLE_MSGBOX, "Banido", str, "Sair", "Fechar");
-	}
-	GivePlayerMoney(playerid,pInfo[playerid][pGrana]);
-	SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
-
-	SetTimerEx("TimerSalvarConta", 4000, true, "d", playerid);
-	new string[30];
-	format(string, 30, "%d%", pInfo[playerid][pFome]);
-	PlayerTextDrawSetString(playerid, Text_Hud[playerid][2], string);
-
-	format(string, 30, "%d%", pInfo[playerid][pSede]);
-	PlayerTextDrawSetString(playerid, Text_Hud[playerid][4], string);
-
-	format(string, 30, "%d%", pInfo[playerid][pSono]);
-	PlayerTextDrawSetString(playerid, Text_Hud[playerid][8], string);
-	for(new i; i < 9; i++) PlayerTextDrawShow(playerid, Text_Hud[playerid][i]);
-
-	SetTimerEx("TimerFome", 400000, true, "d", playerid);
-	SetTimerEx("TimerSede", 550000, true, "d", playerid);
-	SetTimerEx("TimerSono", 700000, true, "d", playerid);
-	TogglePlayerControllable(playerid, 1);
-	*/
-	for(new i=0 ; i < 19; i++) TextDrawShowForPlayer(playerid, Text_Login[i]);
-	for(new i=0 ; i < 9; i++) PlayerTextDrawShow(playerid, PText_Login[playerid][i]);
+	new str[50];
+	format(str, 50, "%s", pName(playerid));
+	PlayerTextDrawSetString(playerid, PText_Login[playerid][3], str);
+	for(new i=0 ; i < 20; i++) TextDrawShowForPlayer(playerid, Text_Login[i]);
+	for(new i=0 ; i < 8; i++) PlayerTextDrawShow(playerid, PText_Login[playerid][i]);
 	SelectTextDraw(playerid, 0x64B1FFFF);
 	TogglePlayerSpectating(playerid, 1);
 	PlayerSpectatePlayer(playerid, playerid);
+	pInfo[playerid][pGenero] = 1;
+	pInfo[playerid][pSkin] = 23;
 	return 1;
 }
 
@@ -481,7 +455,7 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawFont(playerid, PText_Login[playerid][3], 2);
 	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][3], 1);
 
-	PText_Login[playerid][4] = CreatePlayerTextDraw(playerid, 131.534606, 267.728790, "]]]]]]]]]]]");
+	PText_Login[playerid][4] = CreatePlayerTextDraw(playerid, 131.534606, 267.728790, "Senha");
 	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][4], 0.388651, 1.713057);
 	PlayerTextDrawTextSize(playerid, PText_Login[playerid][4], 275.000000, 15.000000);
 	PlayerTextDrawAlignment(playerid, PText_Login[playerid][4], 1);
@@ -494,59 +468,47 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][4], 1);
 	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][4], true);
 
-	PText_Login[playerid][5] = CreatePlayerTextDraw(playerid, 377.943145, 130.643661, "Registrar_conta");
-	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][5], 0.400000, 1.600000);
-	PlayerTextDrawTextSize(playerid, PText_Login[playerid][5], 442.000000, 15.000000);
+	PText_Login[playerid][5] = CreatePlayerTextDraw(playerid, 362.624114, 188.881896, "Masculino");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][5], 0.228475, 1.246687);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][5], 419.000000, 15.000000);
 	PlayerTextDrawAlignment(playerid, PText_Login[playerid][5], 1);
 	PlayerTextDrawColor(playerid, PText_Login[playerid][5], -1);
 	PlayerTextDrawUseBox(playerid, PText_Login[playerid][5], 1);
 	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][5], 0);
-	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][5], -1);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][5], 0);
+	PlayerTextDrawSetOutline(playerid, PText_Login[playerid][5], 1);
 	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][5], 255);
-	PlayerTextDrawFont(playerid, PText_Login[playerid][5], 3);
+	PlayerTextDrawFont(playerid, PText_Login[playerid][5], 2);
 	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][5], 1);
 	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][5], true);
 
-	PText_Login[playerid][6] = CreatePlayerTextDraw(playerid, 362.624114, 188.881896, "masculino");
+	PText_Login[playerid][6] = CreatePlayerTextDraw(playerid, 450.167114, 188.481842, "Feminino");
 	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][6], 0.228475, 1.246687);
-	PlayerTextDrawTextSize(playerid, PText_Login[playerid][6], 419.000000, 15.000000);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][6], 506.000000, 15.000000);
 	PlayerTextDrawAlignment(playerid, PText_Login[playerid][6], 1);
 	PlayerTextDrawColor(playerid, PText_Login[playerid][6], -1);
 	PlayerTextDrawUseBox(playerid, PText_Login[playerid][6], 1);
 	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][6], 0);
-	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][6], 0);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][6], 1);
 	PlayerTextDrawSetOutline(playerid, PText_Login[playerid][6], 1);
 	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][6], 255);
 	PlayerTextDrawFont(playerid, PText_Login[playerid][6], 2);
 	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][6], 1);
 	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][6], true);
 
-	PText_Login[playerid][7] = CreatePlayerTextDraw(playerid, 450.167114, 188.481842, "Feminino");
-	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][7], 0.228475, 1.246687);
-	PlayerTextDrawTextSize(playerid, PText_Login[playerid][7], 506.000000, 15.000000);
+	PText_Login[playerid][7] = CreatePlayerTextDraw(playerid, 307.417022, 349.563964, "Senha");
+	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][7], 0.388651, 1.713057);
+	PlayerTextDrawTextSize(playerid, PText_Login[playerid][7], 452.198608, 15.000000);
 	PlayerTextDrawAlignment(playerid, PText_Login[playerid][7], 1);
 	PlayerTextDrawColor(playerid, PText_Login[playerid][7], -1);
 	PlayerTextDrawUseBox(playerid, PText_Login[playerid][7], 1);
-	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][7], 0);
-	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][7], 1);
-	PlayerTextDrawSetOutline(playerid, PText_Login[playerid][7], 1);
+	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][7], -65536);
+	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][7], 2);
 	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][7], 255);
 	PlayerTextDrawFont(playerid, PText_Login[playerid][7], 2);
 	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][7], 1);
 	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][7], true);
 
-	PText_Login[playerid][8] = CreatePlayerTextDraw(playerid, 307.417022, 349.563964, "]]]]]]]]]");
-	PlayerTextDrawLetterSize(playerid, PText_Login[playerid][8], 0.388651, 1.713057);
-	PlayerTextDrawTextSize(playerid, PText_Login[playerid][8], 452.198608, 15.000000);
-	PlayerTextDrawAlignment(playerid, PText_Login[playerid][8], 1);
-	PlayerTextDrawColor(playerid, PText_Login[playerid][8], -1);
-	PlayerTextDrawUseBox(playerid, PText_Login[playerid][8], 1);
-	PlayerTextDrawBoxColor(playerid, PText_Login[playerid][8], -65536);
-	PlayerTextDrawSetShadow(playerid, PText_Login[playerid][8], 2);
-	PlayerTextDrawBackgroundColor(playerid, PText_Login[playerid][8], 255);
-	PlayerTextDrawFont(playerid, PText_Login[playerid][8], 2);
-	PlayerTextDrawSetProportional(playerid, PText_Login[playerid][8], 1);
-	PlayerTextDrawSetSelectable(playerid, PText_Login[playerid][8], true);
 	//Termino do Sistema de login [TextDraw-TDE]
 
 	return 1;
@@ -739,11 +701,146 @@ public OnVehicleStreamOut(vehicleid, forplayerid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+	if(dialogid == Dialog_InserirSenha)
+	{
+		if(strlen(inputtext) < 6 || strlen(inputtext) > 11) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF} Insira entra 6 e 11 caracteres.");
+		format(SenhaLogin[playerid], 11, "%s", inputtext);
+		for(new i = 0; i < strlen(inputtext); i++)
+		{
+			inputtext[i] = ']';
+		}
+		PlayerTextDrawSetString(playerid, PText_Login[playerid][4], inputtext);
+		PlayerTextDrawShow(playerid, PText_Login[playerid][4]);
+		DigitouSenhaLogin[playerid] = true;
+	}
+	if(dialogid == Dialog_InserirSenhaRegistro)
+	{
+		if(strlen(inputtext) < 6 || strlen(inputtext) > 11) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF} Insira entra 6 e 11 caracteres.");
+		format(SenhaRegistro[playerid], 11, "%s", inputtext);
+		for(new i = 0; i < strlen(inputtext); i++)
+		{
+			inputtext[i] = ']';
+		}
+		PlayerTextDrawSetString(playerid, PText_Login[playerid][7], inputtext);
+		PlayerTextDrawShow(playerid, PText_Login[playerid][7]);
+		DigitouSenhaRegistro[playerid] = true;
+	}
 	return 1;
 }
 
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
+
+	return 1;
+}
+
+public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
+{
+	if(playertextid == PText_Login[playerid][2]) //registro do player
+	{
+		if(DigitouSenhaRegistro[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao terminou o registro.");
+		if(dini_Exists(Arquivo(playerid))) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce ja tem uma conta.");
+
+		dini_Create(Arquivo(playerid));
+		dini_Set(Arquivo(playerid), "Senha", SenhaRegistro[playerid]);
+		pInfo[playerid][pFome] = 100;
+		pInfo[playerid][pSede] = 100;
+		TogglePlayerSpectating(playerid, 0);
+		pInfo[playerid][pAdmin] = 0;
+		pInfo[playerid][pSono] = 100;
+		for(new i=0 ; i < 20; i++) TextDrawHideForPlayer(playerid, Text_Login[i]);
+		for(new i=0 ; i < 8; i++) PlayerTextDrawHide(playerid, PText_Login[playerid][i]);
+		SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
+		CancelSelectTextDraw(playerid);
+
+		/*SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+		SpawnPlayer(playerid);*/
+		SalvarConta(playerid);
+		
+	}
+
+	if(playertextid == PText_Login[playerid][5]) //masc
+	{
+		pInfo[playerid][pGenero] = 1;
+		pInfo[playerid][pSkin] = 23;
+	}
+	if(playertextid == PText_Login[playerid][6]) //fem
+	{
+		pInfo[playerid][pGenero] = 2;
+		pInfo[playerid][pSkin] = 56;
+	}
+	
+	if(playertextid == PText_Login[playerid][1])
+	{
+		Kick(playerid);
+	}
+	if(playertextid == PText_Login[playerid][4])
+	{
+		ShowPlayerDialog(playerid, Dialog_InserirSenha, DIALOG_STYLE_INPUT, "Senha", "{FFFFFF}Digite sua senha.", "Confirmar", "Fechar");
+	}
+	if(playertextid == PText_Login[playerid][7])
+	{
+		ShowPlayerDialog(playerid, Dialog_InserirSenhaRegistro, DIALOG_STYLE_INPUT, "Senha", "{FFFFFF}Digite a senha de registro.", "Confirmar", "Fechar");
+	}
+
+	
+	if(playertextid == PText_Login[playerid][0])  //login do player
+	{
+		if(DigitouSenhaLogin[playerid] == false) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Digite uma senha para logar-se.");
+		if(!dini_Exists(Arquivo(playerid))) return SendClientMessage(playerid, -1, "{FA5858}Erro: {FFFFFF}Voce nao tem uma conta.");
+
+		if(strcmp(SenhaLogin[playerid], dini_Get(Arquivo(playerid), "Senha")) == 0)
+		{
+			CarregarConta(playerid);
+			VerificarBan(playerid);
+
+			SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+			SpawnPlayer(playerid);
+			
+			if(pInfo[playerid][pPresoAdmin] == 1)
+			{
+				new str[50];
+				new pasta[50];
+				format(pasta, 50, "Cadeia/%s.ini", pName(playerid));
+				format(str, 50, "%02d:%02d", pInfo[playerid][pMinutosAdmin], pInfo[playerid][pSegundosAdmin]);
+				PlayerTextDrawSetString(playerid, Text_Timer[playerid][0], str);
+				PlayerTextDrawShow(playerid, Text_Timer[playerid][0]);
+				TimerCadeia[playerid] = SetTimerEx("SairCadeia", 1000, true, "d", playerid);
+				SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 322.197998,302.497985,999.148437,0,  0, 0, 0, 0, 0, 0); // Posição do jogador
+				SpawnPlayer(playerid);
+				SetPlayerPos(playerid, 322.197998,302.497985,999.148437);
+				SetPlayerInterior(playerid, 5);
+				format(str, 210, "{FF0000}=-=- Voce esta preso =-=-\n\n{FFFFFF}Informacoes do banimento\n\n{58D3F7}Admin Responsavel: {FFFFFF}%s\n{58D3F7}Dia da Punicao: {FFFFFF}%s\n{58D3F7}Motivo: %s", dini_Get(pasta, "Admin"), dini_Get(pasta, "Data"), dini_Get(pasta, "Motivo"));
+				ShowPlayerDialog(playerid, 0, DIALOG_STYLE_MSGBOX, "Banido", str, "Sair", "Fechar");
+			}
+
+			TogglePlayerSpectating(playerid, 0);
+			GivePlayerMoney(playerid,pInfo[playerid][pGrana]);
+			SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
+
+			SetTimerEx("TimerSalvarConta", 4000, true, "d", playerid);
+			new string[30];
+			format(string, 30, "%d%", pInfo[playerid][pFome]);
+			PlayerTextDrawSetString(playerid, Text_Hud[playerid][2], string);
+
+			format(string, 30, "%d%", pInfo[playerid][pSede]);
+			PlayerTextDrawSetString(playerid, Text_Hud[playerid][4], string);
+
+			format(string, 30, "%d%", pInfo[playerid][pSono]);
+			PlayerTextDrawSetString(playerid, Text_Hud[playerid][8], string);
+			for(new i; i < 9; i++) PlayerTextDrawShow(playerid, Text_Hud[playerid][i]);
+
+			SetTimerEx("TimerFome", 400000, true, "d", playerid);
+			SetTimerEx("TimerSede", 550000, true, "d", playerid);
+			SetTimerEx("TimerSono", 700000, true, "d", playerid);
+			TogglePlayerControllable(playerid, 1);
+			GetPlayerSkin(playerid);
+			for(new i=0 ; i < 20; i++) TextDrawHideForPlayer(playerid, Text_Login[i]);
+			for(new i=0 ; i < 8; i++) PlayerTextDrawHide(playerid, PText_Login[playerid][i]);
+			CancelSelectTextDraw(playerid);
+		} else return SendClientMessage(playerid, -1, "{FF0000}Info: {FFFFFF}Senha Incorreta");
+	}
+	
 	return 1;
 }
 //__| Timers |__
@@ -829,6 +926,8 @@ stock SalvarConta(playerid)
 	dini_IntSet(Arquivo(playerid), "Preso", pInfo[playerid][pPresoAdmin]);
 	dini_IntSet(Arquivo(playerid), "MinutosPreso", pInfo[playerid][pMinutosAdmin]);
 	dini_IntSet(Arquivo(playerid), "SegundosPreso", pInfo[playerid][pSegundosAdmin]);
+
+	dini_IntSet(Arquivo(playerid), "Genero", pInfo[playerid][pGenero]);
 	return 1;
 }
 
@@ -844,6 +943,8 @@ stock CarregarConta(playerid)
 	pInfo[playerid][pPresoAdmin] = dini_Int(Arquivo(playerid), "Preso");
 	pInfo[playerid][pMinutosAdmin] = dini_Int(Arquivo(playerid), "MinutosPreso");
 	pInfo[playerid][pSegundosAdmin] = dini_Int(Arquivo(playerid), "SegundosPreso");
+
+	pInfo[playerid][pGenero] = dini_Int(Arquivo(playerid), "Genero");
 	return 1;
 }
 

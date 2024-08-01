@@ -1,6 +1,6 @@
 /daradmin [id] [nivel]
 
- // Níveis de 1 a 6
+ // Níveis de 1 a 6||
 	1 = Ajudante
 	2 = Moderador
 	3 = Administrador
@@ -50,4 +50,6 @@ Comandos para serem deletados.
 ----------
 Notas de atualização:
 
-Incrementado a primeira versão da tela de login
+Incrementado sistemas de registro e login.
+
+sendo que o registro está bugado e quando o player se registra ele é desconectado do server, mas salva todas as info dele
