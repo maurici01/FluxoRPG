@@ -50,10 +50,12 @@ Comandos para serem deletados.
 ----------
 Notas de atualização:
 
-Resolvido bug do sistema de registro que desconectava o player do servidor.
+Resolvido bug do sistema deexibição das barras de fome, sede e sono.
+
+
 
 
 
 Proxima att :
 
-Resolver exibição das barras de fome, sede e sono
+

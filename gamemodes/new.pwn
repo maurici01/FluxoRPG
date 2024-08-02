@@ -747,9 +747,29 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
 		CancelSelectTextDraw(playerid);
 
+		//teste
+		new string[30];
+		format(string, 30, "%d%", pInfo[playerid][pFome]);
+		PlayerTextDrawSetString(playerid, Text_Hud[playerid][2], string);
+
+		format(string, 30, "%d%", pInfo[playerid][pSede]);
+		PlayerTextDrawSetString(playerid, Text_Hud[playerid][4], string);
+
+		format(string, 30, "%d%", pInfo[playerid][pSono]);
+		PlayerTextDrawSetString(playerid, Text_Hud[playerid][8], string);
+		for(new i; i < 9; i++) PlayerTextDrawShow(playerid, Text_Hud[playerid][i]);
+
+		SetTimerEx("TimerFome", 400000, true, "d", playerid);
+		SetTimerEx("TimerSede", 550000, true, "d", playerid);
+		SetTimerEx("TimerSono", 700000, true, "d", playerid);
+		// teste
 		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
 		SpawnPlayer(playerid);
-		//SalvarConta(playerid);
+
+
+
+
+		SalvarConta(playerid);
 		return 1;
 	}
 
