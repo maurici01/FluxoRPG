@@ -50,12 +50,14 @@ Comandos para serem deletados.
 ----------
 Notas de atualização:
 
-Resolvido bug do sistema deexibição das barras de fome, sede e sono.
+Setado o spawn de los santos.
 
 
 
 
 
 Proxima att :
+
+Necessario salvar a posição do jogador ao deslogar e no sistema de cadeia tbm
 
 

@@ -283,6 +283,35 @@ public OnGameModeInit()
 
 	//Termino do Sistema de login [TextDraw-TDE]
 
+	CreateObject(994, 1162.40491, -1756.37720, 13.37163,   0.00000, 0.00000, 90.06279);
+	CreateObject(994, 1146.91956, -1756.16199, 13.37163,   0.00000, 0.00000, 90.06279);
+	CreateObject(997, 1145.91370, -1751.30139, 13.19210,   0.00000, 0.00000, 269.73889);
+	CreateObject(997, 1161.44250, -1751.53186, 13.19210,   0.00000, 0.00000, 269.73889);
+	CreateObject(1288, 1164.35425, -1746.93799, 13.47197,   0.00000, 0.00000, 0.00000);
+	CreateObject(1288, 1163.91138, -1746.93640, 13.47197,   0.00000, 0.00000, 0.00000);
+	CreateObject(14467, 1145.76843, -1748.38379, 15.69569,   0.00000, 0.00000, 211.02023);
+	CreateObject(14467, 1162.50256, -1748.29993, 15.29469,   0.00000, 0.00000, 148.58438);
+	CreateObject(1340, 1159.12390, -1726.40198, 13.88100,   0.00000, 0.00000, 223.19901);
+	CreateObject(1775, 1145.28271, -1765.81982, 13.63617,   0.00000, 0.00000, 180.21658);
+	CreateObject(1775, 1143.42749, -1765.81616, 13.63617,   0.00000, 0.00000, 180.21658);
+	CreateObject(1597, 1163.08313, -1755.35767, 15.32036,   0.00000, 0.00000, 0.35128);
+	CreateObject(1597, 1144.93176, -1755.31091, 15.32036,   0.00000, 0.00000, 0.35128);
+	CreateObject(2754, 1147.51001, -1772.74988, 16.48820,   0.00000, 0.00000, 267.38721);
+	CreateVehicle(462, 1147.5692, -1757.9052, 13.1388, 273.7103, -1, -1, 100);
+	CreateVehicle(462, 1147.6130, -1756.3984, 13.1388, 273.7103, -1, -1, 100);
+	CreateVehicle(462, 1147.6569, -1755.0382, 13.1388, 273.7103, -1, -1, 100);
+	CreateVehicle(462, 1147.6395, -1753.5250, 13.1388, 273.7103, -1, -1, 100);
+	CreateVehicle(462, 1147.6437, -1752.0287, 13.1388, 273.7103, -1, -1, 100);
+	CreateVehicle(462, 1147.6646, -1759.4021, 13.1388, 273.7103, -1, -1, 100);
+	CreateVehicle(462, 1160.4768, -1759.4326, 13.1538, 87.7339, -1, -1, 100);
+	CreateVehicle(462, 1160.4761, -1757.9725, 13.1538, 87.7339, -1, -1, 100);
+	CreateVehicle(462, 1160.4618, -1756.4872, 13.1538, 87.7339, -1, -1, 100);
+	CreateVehicle(462, 1160.5360, -1755.0948, 13.1538, 87.7339, -1, -1, 100);
+	CreateVehicle(462, 1160.4962, -1753.5524, 13.1538, 87.7339, -1, -1, 100);
+	CreateVehicle(462, 1160.5446, -1752.1005, 13.1538, 87.7339, -1, -1, 100);
+
+
+
 	return 1;
 }
 
@@ -763,7 +792,9 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		SetTimerEx("TimerSede", 550000, true, "d", playerid);
 		SetTimerEx("TimerSono", 700000, true, "d", playerid);
 		// teste
-		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+		//SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1147.6646, -1759.4021, 13.1388, 273.7103, 0, 0, 0, 0, 0, 0);
+			
 		SpawnPlayer(playerid);
 
 
@@ -808,7 +839,8 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			CarregarConta(playerid);
 			VerificarBan(playerid);
 
-			SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+			//SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+			SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1147.6646, -1759.4021, 13.1388, 273.7103, 0, 0, 0, 0, 0, 0);
 			SpawnPlayer(playerid);
 			
 			if(pInfo[playerid][pPresoAdmin] == 1)
