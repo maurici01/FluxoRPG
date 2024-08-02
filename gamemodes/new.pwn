@@ -862,7 +862,8 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 			TogglePlayerSpectating(playerid, 0);
 			GivePlayerMoney(playerid,pInfo[playerid][pGrana]);
-			SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
+			GetPlayerSkin(playerid);
+			//SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
 
 			SetTimerEx("TimerSalvarConta", 4000, true, "d", playerid);
 			new string[30];

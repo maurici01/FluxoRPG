@@ -50,7 +50,7 @@ Comandos para serem deletados.
 ----------
 Notas de atualização:
 
-Setado o spawn de los santos.
+Resolvido bug da skin ao logar-se na conta
 
 
 
@@ -58,6 +58,6 @@ Setado o spawn de los santos.
 
 Proxima att :
 
-Necessario salvar a posição do jogador ao deslogar e no sistema de cadeia tbm
+sistema de pagamento diario (pay day)
 
 
