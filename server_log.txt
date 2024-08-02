@@ -24323,3 +24323,512 @@ ___ == ____ == ___ == ___ ==
 [15:01:24] [connection] incoming connection: 127.0.0.1:56492 id: 0
 [15:01:24] [join] Maurici02 has joined the server (0:127.0.0.1)
 [15:01:34] [part] Maurici02 has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:02:26] filterscripts = ""  (string)
+[15:02:26] weburl = "www.sa-mp.com"  (string)
+[15:02:26] 
+[15:02:26] Server Plugins
+[15:02:26] --------------
+[15:02:26]  Loading plugin: streamer
+[15:02:26] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[15:02:26]   Loaded.
+[15:02:26]  Loading plugin: sscanf
+[15:02:26] 
+
+[15:02:26]  ===============================
+
+[15:02:26]       sscanf plugin loaded.     
+
+[15:02:26]          Version:  2.8.2        
+
+[15:02:26]    (c) 2012 Alex "Y_Less" Cole  
+
+[15:02:26]  ===============================
+
+[15:02:26]   Loaded.
+[15:02:26]  Loaded 2 plugins.
+
+[15:02:26] 
+[15:02:26] Filterscripts
+[15:02:26] ---------------
+[15:02:26]   Loaded 0 filterscripts.
+
+[15:02:26] 
+___ == ____ == ___ == ___ ==
+[15:02:26]  Gamemode: FLUXO RPG
+[15:02:26] ___ == ____ == ___ == ___ ==
+
+[15:02:26] Number of vehicle models: 0
+[15:02:46] [connection] 127.0.0.1:64358 requests connection cookie.
+[15:02:47] [connection] incoming connection: 127.0.0.1:64358 id: 0
+[15:02:48] [join] Maurici02 has joined the server (0:127.0.0.1)
+[15:02:56] [part] Maurici02 has left the server (0:2)
+[15:03:30] [connection] 127.0.0.1:57536 requests connection cookie.
+[15:03:31] [connection] incoming connection: 127.0.0.1:57536 id: 0
+[15:03:31] [join] Maurici03 has joined the server (0:127.0.0.1)
+[15:03:38] [part] Maurici03 has left the server (0:2)
+[15:04:34] [connection] 127.0.0.1:55982 requests connection cookie.
+[15:04:35] [connection] incoming connection: 127.0.0.1:55982 id: 0
+[15:04:35] [join] Maurici02 has joined the server (0:127.0.0.1)
+[15:04:52] [part] Maurici02 has left the server (0:1)
+[15:13:40] --- Server Shutting Down.
+[15:13:40] 
+
+*** Streamer Plugin v2.9.4 by Incognito unloaded ***
+
+[15:13:40] 
+
+[15:13:40]  ===============================
+
+[15:13:40]      sscanf plugin unloaded.    
+
+[15:13:40]  ===============================
+
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:51:27] filterscripts = ""  (string)
+[09:51:27] weburl = "www.sa-mp.com"  (string)
+[09:51:27] 
+[09:51:27] Server Plugins
+[09:51:27] --------------
+[09:51:27]  Loading plugin: streamer
+[09:51:27] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[09:51:27]   Loaded.
+[09:51:27]  Loading plugin: sscanf
+[09:51:27] 
+
+[09:51:27]  ===============================
+
+[09:51:27]       sscanf plugin loaded.     
+
+[09:51:27]          Version:  2.8.2        
+
+[09:51:27]    (c) 2012 Alex "Y_Less" Cole  
+
+[09:51:27]  ===============================
+
+[09:51:27]   Loaded.
+[09:51:27]  Loaded 2 plugins.
+
+[09:51:27] 
+[09:51:27] Filterscripts
+[09:51:27] ---------------
+[09:51:27]   Loaded 0 filterscripts.
+
+[09:51:27] 
+___ == ____ == ___ == ___ ==
+[09:51:27]  Gamemode: FLUXO RPG
+[09:51:27] ___ == ____ == ___ == ___ ==
+
+[09:51:27] Number of vehicle models: 0
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:51:28] filterscripts = ""  (string)
+[09:51:28] weburl = "www.sa-mp.com"  (string)
+[09:51:28] 
+[09:51:28] Server Plugins
+[09:51:28] --------------
+[09:51:28]  Loading plugin: streamer
+[09:51:28] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[09:51:28]   Loaded.
+[09:51:28]  Loading plugin: sscanf
+[09:51:28] 
+
+[09:51:28]  ===============================
+
+[09:51:28]       sscanf plugin loaded.     
+
+[09:51:28]          Version:  2.8.2        
+
+[09:51:28]    (c) 2012 Alex "Y_Less" Cole  
+
+[09:51:28]  ===============================
+
+[09:51:28]   Loaded.
+[09:51:28]  Loaded 2 plugins.
+
+[09:51:28] 
+[09:51:28] Filterscripts
+[09:51:28] ---------------
+[09:51:28]   Loaded 0 filterscripts.
+
+[09:51:28] 
+___ == ____ == ___ == ___ ==
+[09:51:28]  Gamemode: FLUXO RPG
+[09:51:28] ___ == ____ == ___ == ___ ==
+
+[09:51:28] Number of vehicle models: 0
+[09:52:45] [connection] 127.0.0.1:50710 requests connection cookie.
+[09:52:46] [connection] incoming connection: 127.0.0.1:50710 id: 0
+[09:52:46] [join] Maurici02 has joined the server (0:127.0.0.1)
+[09:53:14] [part] Maurici02 has left the server (0:1)
+[09:53:49] [connection] 127.0.0.1:58926 requests connection cookie.
+[09:53:50] [connection] incoming connection: 127.0.0.1:58926 id: 0
+[09:53:50] [join] Maurici09 has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:54:46] filterscripts = ""  (string)
+[09:54:46] weburl = "www.sa-mp.com"  (string)
+[09:54:46] 
+[09:54:46] Server Plugins
+[09:54:46] --------------
+[09:54:46]  Loading plugin: streamer
+[09:54:46] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[09:54:46]   Loaded.
+[09:54:46]  Loading plugin: sscanf
+[09:54:46] 
+
+[09:54:46]  ===============================
+
+[09:54:46]       sscanf plugin loaded.     
+
+[09:54:46]          Version:  2.8.2        
+
+[09:54:46]    (c) 2012 Alex "Y_Less" Cole  
+
+[09:54:46]  ===============================
+
+[09:54:46]   Loaded.
+[09:54:46]  Loaded 2 plugins.
+
+[09:54:46] 
+[09:54:46] Filterscripts
+[09:54:46] ---------------
+[09:54:46]   Loaded 0 filterscripts.
+
+[09:54:46] 
+___ == ____ == ___ == ___ ==
+[09:54:46]  Gamemode: FLUXO RPG
+[09:54:46] ___ == ____ == ___ == ___ ==
+
+[09:54:46] Number of vehicle models: 0
+[09:55:01] [connection] 127.0.0.1:60692 requests connection cookie.
+[09:55:02] [connection] incoming connection: 127.0.0.1:60692 id: 0
+[09:55:02] [join] Maurici09 has joined the server (0:127.0.0.1)
+[09:55:09] [part] Maurici09 has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:56:14] filterscripts = ""  (string)
+[09:56:14] weburl = "www.sa-mp.com"  (string)
+[09:56:14] 
+[09:56:14] Server Plugins
+[09:56:14] --------------
+[09:56:14]  Loading plugin: streamer
+[09:56:14] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[09:56:14]   Loaded.
+[09:56:14]  Loading plugin: sscanf
+[09:56:14] 
+
+[09:56:14]  ===============================
+
+[09:56:14]       sscanf plugin loaded.     
+
+[09:56:14]          Version:  2.8.2        
+
+[09:56:14]    (c) 2012 Alex "Y_Less" Cole  
+
+[09:56:14]  ===============================
+
+[09:56:14]   Loaded.
+[09:56:14]  Loaded 2 plugins.
+
+[09:56:14] 
+[09:56:14] Filterscripts
+[09:56:14] ---------------
+[09:56:14]   Loaded 0 filterscripts.
+
+[09:56:14] 
+___ == ____ == ___ == ___ ==
+[09:56:14]  Gamemode: FLUXO RPG
+[09:56:14] ___ == ____ == ___ == ___ ==
+
+[09:56:14] Number of vehicle models: 0
+[09:56:47] [connection] 127.0.0.1:60493 requests connection cookie.
+[09:56:48] [connection] incoming connection: 127.0.0.1:60493 id: 0
+[09:56:48] [join] Maurici09 has joined the server (0:127.0.0.1)
+[09:56:56] [part] Maurici09 has left the server (0:2)
+[09:57:46] [connection] 127.0.0.1:53202 requests connection cookie.
+[09:57:47] [connection] incoming connection: 127.0.0.1:53202 id: 0
+[09:57:47] [join] Maurici08 has joined the server (0:127.0.0.1)
+[09:57:59] [part] Maurici08 has left the server (0:2)
+[09:58:38] --- Server Shutting Down.
+[09:58:38] 
+
+*** Streamer Plugin v2.9.4 by Incognito unloaded ***
+
+[09:58:38] 
+
+[09:58:38]  ===============================
+
+[09:58:38]      sscanf plugin unloaded.    
+
+[09:58:38]  ===============================
+
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:58:48] filterscripts = ""  (string)
+[09:58:48] weburl = "www.sa-mp.com"  (string)
+[09:58:48] 
+[09:58:48] Server Plugins
+[09:58:48] --------------
+[09:58:48]  Loading plugin: streamer
+[09:58:48] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[09:58:48]   Loaded.
+[09:58:48]  Loading plugin: sscanf
+[09:58:48] 
+
+[09:58:48]  ===============================
+
+[09:58:48]       sscanf plugin loaded.     
+
+[09:58:48]          Version:  2.8.2        
+
+[09:58:48]    (c) 2012 Alex "Y_Less" Cole  
+
+[09:58:48]  ===============================
+
+[09:58:48]   Loaded.
+[09:58:48]  Loaded 2 plugins.
+
+[09:58:48] 
+[09:58:48] Filterscripts
+[09:58:48] ---------------
+[09:58:48]   Loaded 0 filterscripts.
+
+[09:58:48] 
+___ == ____ == ___ == ___ ==
+[09:58:48]  Gamemode: FLUXO RPG
+[09:58:48] ___ == ____ == ___ == ___ ==
+
+[09:58:48] Number of vehicle models: 0
+[09:59:19] [connection] 127.0.0.1:50226 requests connection cookie.
+[09:59:20] [connection] incoming connection: 127.0.0.1:50226 id: 0
+[09:59:20] [join] Maurici08 has joined the server (0:127.0.0.1)
+[09:59:29] [part] Maurici08 has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[10:03:02] filterscripts = ""  (string)
+[10:03:02] weburl = "www.sa-mp.com"  (string)
+[10:03:02] 
+[10:03:02] Server Plugins
+[10:03:02] --------------
+[10:03:02]  Loading plugin: streamer
+[10:03:02] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[10:03:02]   Loaded.
+[10:03:02]  Loading plugin: sscanf
+[10:03:02] 
+
+[10:03:02]  ===============================
+
+[10:03:02]       sscanf plugin loaded.     
+
+[10:03:02]          Version:  2.8.2        
+
+[10:03:02]    (c) 2012 Alex "Y_Less" Cole  
+
+[10:03:02]  ===============================
+
+[10:03:02]   Loaded.
+[10:03:02]  Loaded 2 plugins.
+
+[10:03:02] 
+[10:03:02] Filterscripts
+[10:03:02] ---------------
+[10:03:02]   Loaded 0 filterscripts.
+
+[10:03:02] 
+___ == ____ == ___ == ___ ==
+[10:03:02]  Gamemode: FLUXO RPG
+[10:03:02] ___ == ____ == ___ == ___ ==
+
+[10:03:02] Number of vehicle models: 0
+[10:03:05] [connection] 127.0.0.1:51088 requests connection cookie.
+[10:03:06] [connection] incoming connection: 127.0.0.1:51088 id: 0
+[10:03:06] [join] Maurici08 has joined the server (0:127.0.0.1)
+[10:03:14] [part] Maurici08 has left the server (0:2)
+[10:03:43] --- Server Shutting Down.
+[10:03:44] 
+
+*** Streamer Plugin v2.9.4 by Incognito unloaded ***
+
+[10:03:44] 
+
+[10:03:44]  ===============================
+
+[10:03:44]      sscanf plugin unloaded.    
+
+[10:03:44]  ===============================
+
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[10:23:44] filterscripts = ""  (string)
+[10:23:44] weburl = "www.sa-mp.com"  (string)
+[10:23:44] 
+[10:23:44] Server Plugins
+[10:23:44] --------------
+[10:23:44]  Loading plugin: streamer
+[10:23:44] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[10:23:44]   Loaded.
+[10:23:44]  Loading plugin: sscanf
+[10:23:44] 
+
+[10:23:44]  ===============================
+
+[10:23:44]       sscanf plugin loaded.     
+
+[10:23:44]          Version:  2.8.2        
+
+[10:23:44]    (c) 2012 Alex "Y_Less" Cole  
+
+[10:23:44]  ===============================
+
+[10:23:44]   Loaded.
+[10:23:44]  Loaded 2 plugins.
+
+[10:23:44] 
+[10:23:44] Filterscripts
+[10:23:44] ---------------
+[10:23:44]   Loaded 0 filterscripts.
+
+[10:23:44] 
+___ == ____ == ___ == ___ ==
+[10:23:44]  Gamemode: FLUXO RPG
+[10:23:44] ___ == ____ == ___ == ___ ==
+
+[10:23:44] Number of vehicle models: 0
+[10:24:06] [connection] 127.0.0.1:49971 requests connection cookie.
+[10:24:07] [connection] incoming connection: 127.0.0.1:49971 id: 0
+[10:24:07] [join] Maurici09 has joined the server (0:127.0.0.1)
+[10:24:15] [part] Maurici09 has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[10:25:13] filterscripts = ""  (string)
+[10:25:13] weburl = "www.sa-mp.com"  (string)
+[10:25:13] 
+[10:25:13] Server Plugins
+[10:25:13] --------------
+[10:25:13]  Loading plugin: streamer
+[10:25:13] 
+
+*** Streamer Plugin v2.9.4 by Incognito loaded ***
+
+[10:25:13]   Loaded.
+[10:25:13]  Loading plugin: sscanf
+[10:25:13] 
+
+[10:25:13]  ===============================
+
+[10:25:13]       sscanf plugin loaded.     
+
+[10:25:13]          Version:  2.8.2        
+
+[10:25:13]    (c) 2012 Alex "Y_Less" Cole  
+
+[10:25:13]  ===============================
+
+[10:25:13]   Loaded.
+[10:25:13]  Loaded 2 plugins.
+
+[10:25:13] 
+[10:25:13] Filterscripts
+[10:25:13] ---------------
+[10:25:13]   Loaded 0 filterscripts.
+
+[10:25:13] 
+___ == ____ == ___ == ___ ==
+[10:25:13]  Gamemode: FLUXO RPG
+[10:25:13] ___ == ____ == ___ == ___ ==
+
+[10:25:13] Number of vehicle models: 0
+[10:25:34] [connection] 127.0.0.1:55038 requests connection cookie.
+[10:25:35] [connection] incoming connection: 127.0.0.1:55038 id: 0
+[10:25:36] [join] Maurici09 has joined the server (0:127.0.0.1)
+[10:26:08] RCON (In-Game): Player #0 (Maurici09) has logged in.

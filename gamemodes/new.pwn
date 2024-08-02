@@ -728,12 +728,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	return 1;
 }
 
-public OnPlayerClickPlayer(playerid, clickedplayerid, source)
-{
-
-	return 1;
-}
-
 public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 {
 	if(playertextid == PText_Login[playerid][2]) //registro do player
@@ -753,10 +747,10 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		SetPlayerSkin(playerid, pInfo[playerid][pSkin]);
 		CancelSelectTextDraw(playerid);
 
-		/*SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
-		SpawnPlayer(playerid);*/
-		SalvarConta(playerid);
-		
+		SetSpawnInfo(playerid, 0, pInfo[playerid][pSkin], 1408.4352,-964.8619,46.9375,356.3838, 0, 0, 0, 0, 0, 0); // spawner do jogador
+		SpawnPlayer(playerid);
+		//SalvarConta(playerid);
+		return 1;
 	}
 
 	if(playertextid == PText_Login[playerid][5]) //masc

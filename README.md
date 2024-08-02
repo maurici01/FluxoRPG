@@ -50,6 +50,10 @@ Comandos para serem deletados.
 ----------
 Notas de atualização:
 
-Incrementado sistemas de registro e login.
+Resolvido bug do sistema de registro que desconectava o player do servidor.
 
-sendo que o registro está bugado e quando o player se registra ele é desconectado do server, mas salva todas as info dele
+
+
+Proxima att :
+
+Resolver exibição das barras de fome, sede e sono
